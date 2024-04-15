@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-04-07T14:24:43.967Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="qWmkzevPkPZAn75fb-ud" version="24.2.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-15T15:44:49.121Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="nH2OILK1iDOd1QzCNrEK" version="24.2.2" type="github">
   <diagram name="Страница — 1" id="EISbMjJNOuyy9u4AKIzm">
-    <mxGraphModel dx="6760" dy="1415" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="7731" dy="2830" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -162,63 +162,10 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-1" value="&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;br&gt;&lt;/blockquote&gt;" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;labelPosition=left;verticalLabelPosition=top;align=right;verticalAlign=bottom;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="-3960" y="400" width="1910" height="1420" as="geometry" />
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-2" value="System" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="1">
-          <mxGeometry x="-3960" y="397" width="60" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-3" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;IGameEntity&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ DrawOrder { get; } : int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Update(gameTime : GameTime, screen : Screen) : void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Draw(gameTime : GameTime) : void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="-2720" y="530" width="470" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-5" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;SpriteAnimation&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _frames: List&amp;lt;SpriteAnimationFrame&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ IsPlaying { get; private set; } : bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ PlaybackProgress { get; private set; } : float&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ AddFrame(sprite : Sprite, timeStamp : float) : void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Update(gameTime : GameTime) : void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Play() : void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Stop() : void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ GetFrame (index : int) : SpriteAnimationFrame&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="-3380" y="1530" width="320" height="200" as="geometry" />
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-6" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;SpriteAnimationFrame&lt;/b&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Sprite { get; set; } : Sprite&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ TimeStamp { get; } : float&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="-2950" y="1529" width="160" height="200" as="geometry" />
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-8" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;rounded=0;exitX=1.01;exitY=0.421;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.013;entryY=0.669;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="JOU9i0YI9IU0tnlsqIkk-5" target="JOU9i0YI9IU0tnlsqIkk-6">
-          <mxGeometry x="-1" y="3" relative="1" as="geometry">
-            <mxPoint x="-3000" y="1580" as="sourcePoint" />
-            <mxPoint x="-2840" y="1580" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-9" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Button&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;/p&gt;&lt;span style=&quot;border-color: var(--border-color); text-align: center;&quot;&gt;&lt;b&gt;&amp;nbsp;&lt;/b&gt;- _text: string&lt;br&gt;&amp;nbsp;+ Color {get; private set;} : Color&lt;br&gt;&lt;/span&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;border-color: var(--border-color); text-align: center;&quot;&gt;&amp;nbsp;&lt;span style=&quot;text-align: left;&quot;&gt;+ DrawOrder { get; } : int&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp;+ Position {get; private set;} : Point&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp;+ Width {get; private set;} : int&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp;+ Height {get; private set;} : int&amp;nbsp;&lt;/div&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;+ Hover () : void &amp;lt;&amp;lt;virtual&amp;gt;&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;+ Press () : void &amp;lt;&amp;lt;virtual&amp;gt;&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;+ Update(gameTime : GameTime, screen : Screen) : void&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;+ Draw(gameTime : GameTime) : void&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="-2730" y="820" width="510" height="230" as="geometry" />
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-10" value="" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="JOU9i0YI9IU0tnlsqIkk-9" target="JOU9i0YI9IU0tnlsqIkk-14">
-          <mxGeometry x="-0.4484" y="-10" relative="1" as="geometry">
-            <mxPoint x="-2370" y="1090" as="sourcePoint" />
-            <mxPoint x="-2830" y="1180" as="targetPoint" />
-            <mxPoint as="offset" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-11" value="" style="endArrow=block;startArrow=none;endFill=0;startFill=0;endSize=8;html=1;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="JOU9i0YI9IU0tnlsqIkk-3" target="JOU9i0YI9IU0tnlsqIkk-9">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="-2435" y="950" as="sourcePoint" />
-            <mxPoint x="-2650" y="750" as="targetPoint" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-14" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;Sprite&lt;/b&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;+ Texture {get; private set;} : Texture2D&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;+ X {get; private set;} : int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;+ Y {get; private set;} : int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;+ Width {get; private set;} : int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;+ Height {get; private set;} : int&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Draw(spriteBatch : SpriteBatch) : void&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="-3120" y="1050" width="260" height="200" as="geometry" />
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-15" value="" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="JOU9i0YI9IU0tnlsqIkk-6" target="JOU9i0YI9IU0tnlsqIkk-14">
-          <mxGeometry x="-0.4484" y="-10" relative="1" as="geometry">
-            <mxPoint x="-2740" y="1230" as="sourcePoint" />
-            <mxPoint x="-2810" y="1417" as="targetPoint" />
-            <mxPoint as="offset" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-16" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Scene&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;/p&gt;&lt;span style=&quot;border-color: var(--border-color); text-align: center;&quot;&gt;&amp;nbsp;+ Background {get; private set;} : Sprite&lt;br&gt;&lt;/span&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;border-color: var(--border-color); text-align: center;&quot;&gt;&amp;nbsp;&lt;span style=&quot;text-align: left;&quot;&gt;+ DrawOrder { get; } : int&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp;- _entities : List&amp;lt;IGameEntity&amp;gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left;&quot;&gt;&amp;nbsp;+ Entities {get;} : ReadOnlyList&amp;lt;_entities&amp;gt;&lt;/div&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ Update(gameTime : GameTime, screen : Screen) : void&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;+ Draw(gameTime : GameTime) : void&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="-3590" y="540" width="510" height="230" as="geometry" />
-        </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-17" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;ModelController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+        <mxCell id="JOU9i0YI9IU0tnlsqIkk-17" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;ModelController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="-20" y="940" width="160" height="200" as="geometry" />
         </mxCell>
-        <mxCell id="JOU9i0YI9IU0tnlsqIkk-18" value="dispatch" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="JOU9i0YI9IU0tnlsqIkk-17" target="alK7boZIeArMXrxe7pY8-9">
+        <mxCell id="JOU9i0YI9IU0tnlsqIkk-18" value="dispatch" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" source="JOU9i0YI9IU0tnlsqIkk-17" target="alK7boZIeArMXrxe7pY8-9" edge="1">
           <mxGeometry width="60" relative="1" as="geometry">
             <mxPoint x="-50" y="1050" as="sourcePoint" />
             <mxPoint x="-450" y="1050" as="targetPoint" />
