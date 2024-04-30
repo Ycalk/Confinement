@@ -1,27 +1,39 @@
-﻿using System.Diagnostics;
-using Confinement.System;
+﻿
+
+using Architecture;
+using Confinement.View;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using static Confinement.GameModel.GameModel;
 
 namespace Confinement
 {
     public class Main : Game
     {
-        
-
         public const string GameName = "Confinement";
+        public static GraphicsDevice Graphics { get; private set; }
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private readonly EntityManager _entityManager;
+        private readonly Controller _controller;
+        private readonly Player.Player _player;
+        private readonly Manager _viewManager;
 
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-            _entityManager = new EntityManager();
+            _graphics.IsFullScreen = true;
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+
+            _player = new Player.Player();
+            var mouseState = Mouse.GetState();
+            _controller = new Controller(_player,
+                new Screen(Window.ClientBounds.Width, Window.ClientBounds.Height, mouseState.X, mouseState.Y));
+            _viewManager = new Manager(_controller);
         }
 
         protected override void Initialize()
@@ -30,30 +42,31 @@ namespace Confinement
 
             if (GraphicsDevice is null)
                 _graphics.ApplyChanges();
-
-            
-            Window.AllowUserResizing = true;
+            IsMouseVisible = true;
             Window.Title = GameName;
         }
 
         protected override void LoadContent()
         {
+            Graphics = GraphicsDevice;
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            View.Content.LoadContent(Content);
+            _controller.StartModel();
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            _entityManager.Manage(gameTime, new Screen(Window.ClientBounds.Width, Window.ClientBounds.Height));
-            base.Update(gameTime);
+            _player.ProcessControls(Window.ClientBounds.Width, Window.ClientBounds.Height);
+            _controller.Manage(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
             _spriteBatch.Begin();
-            _entityManager.DrawEntities(gameTime, _spriteBatch, new Screen(Window.ClientBounds.Width, Window.ClientBounds.Height));
+            _viewManager.DrawScene(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
