@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using static Confinement.GameModel.GameModel;
 
 namespace Confinement
 {
@@ -17,21 +16,21 @@ namespace Confinement
 
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private readonly Controller _controller;
-        private readonly Player.Player _player;
+        private readonly GameModel.GameModel.Controller _controller;
+        private readonly Player _player;
         private readonly Manager _viewManager;
 
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            _graphics.IsFullScreen = true;
-            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-
-            _player = new Player.Player();
+            //_graphics.IsFullScreen = true;
+            //_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            //_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            Window.AllowUserResizing = true;
+            _player = new Player();
             var mouseState = Mouse.GetState();
-            _controller = new Controller(_player,
+            _controller = new GameModel.GameModel.Controller(_player,
                 new Screen(Window.ClientBounds.Width, Window.ClientBounds.Height, mouseState.X, mouseState.Y));
             _viewManager = new Manager(_controller);
         }

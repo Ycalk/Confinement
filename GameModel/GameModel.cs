@@ -14,15 +14,22 @@ namespace Confinement.GameModel
             ComputerWin,
         }
 
-        public static State GameState { get; private set; }
+        public enum GameState
+        {
+            MainMenu,
+            Playing,
+        }
+
+        public static GameState State { get; private set; }
         public static Screen Screen { get; private set; }
 
         private static PlayStay _playStay;
         private static Scene _currentScene;
+        private static Controller _controller;
 
         static GameModel()
         {
-            GameState = State.MainMenu;
+            State = GameState.MainMenu;
         }
     }
 }

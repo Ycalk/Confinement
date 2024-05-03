@@ -6,64 +6,47 @@ using System.Threading.Tasks;
 using Architecture;
 using Architecture.Entities;
 using Architecture.Entities.System;
-using Confinement.View.System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Confinement.View.Scenes.Cubes
 {
-    internal class Scene : Architecture.Scene, ISceneConstructor, ISceneWithCubes
+    internal class Scene : Architecture.Scene, ISceneConstructor
     {
         public Scene(IEnumerable<Button> buttons, 
             IEnumerable<Image> images, 
             IEnumerable<Text> texts, 
             IEnumerable<Cube> cubes, 
-            GraphicsDevice graphics, 
+            GraphicsDevice graphics,
+            float distancing,
             Texture2D background) 
-            : base(buttons, images, texts, cubes, graphics, background)
+            : base(buttons, images, texts, cubes, distancing, graphics, background)
         {
         }
 
         public static Architecture.Scene GetScene()
         {
-            var cubesPositions = new Vector3[]
+            var fieldSize = 9;
+            var cubesPositions = new List<Vector3>();
+            for (var x = -(fieldSize / 2); x <= fieldSize / 2; x++)
             {
-                new (0, 0, 0),
-                new (View.Content.CubeSizeWithOffset,0,0),
-                new (-View.Content.CubeSizeWithOffset,0,0),
-                new (0,0,View.Content.CubeSizeWithOffset),
-                new (0,0,-View.Content.CubeSizeWithOffset),
-                new (View.Content.CubeSizeWithOffset,0,View.Content.CubeSizeWithOffset),
-                new (-View.Content.CubeSizeWithOffset,0,View.Content.CubeSizeWithOffset),
-                new (View.Content.CubeSizeWithOffset,0,-View.Content.CubeSizeWithOffset),
-                new (-View.Content.CubeSizeWithOffset,0,-View.Content.CubeSizeWithOffset)
-            };
-
-            var cubes = cubesPositions.Select(p => new Content.Cube(p, View.Content.Cube)).ToList();
+                for (var y = -(fieldSize / 2); y <= fieldSize / 2; y++)
+                {
+                    cubesPositions.Add(
+                        new Vector3(View.Content.CubeSizeWithOffset * x, 0, View.Content.CubeSizeWithOffset * y));
+                }
+            }
+            var cubes = cubesPositions.Select(p => new Content.Cube(p, View.Content.Cube));
             return new Scene(
                 Array.Empty<Button>(),
                 Array.Empty<Image>(),
                 Array.Empty<Text>(),
                 cubes,
                 Main.Graphics,
+                40,
                 Sprite.GeSolidColorTexture(Main.Graphics, Color.White, 
                     GameModel.GameModel.Screen.Width, GameModel.GameModel.Screen.Height)
             );
-        }
-
-        public void AddCube(Cube cube)
-        {
-            CubeManager.Add(cube);
-        }
-
-        public void RemoveCube(Cube cube)
-        {
-            CubeManager.Remove(cube);
-        }
-
-        public void IgnoreCube(Cube cube)
-        {
-            CubeManager.AddIgnoringCube(cube);
         }
     }
 }

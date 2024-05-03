@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Architecture;
 using Architecture.Entities;
 using Confinement.View;
-using Confinement.View.System;
 using Microsoft.Xna.Framework;
 
 
@@ -19,8 +19,9 @@ namespace Confinement.GameModel
                 _requests.Enqueue(request);
 
             public event Action<Scene> SceneChange;
-            public Controller(Player.Player player, Screen screen)
+            public Controller(Player player, Screen screen)
             {
+                _controller = this;
                 player.WindowResize += OnWindowResize;
                 player.MouseButtonPress += OnMouseButtonPress;
                 player.MouseButtonRelease += OnMouseButtonRelease;
@@ -58,45 +59,16 @@ namespace Confinement.GameModel
             public void Manage(GameTime gameTime)
             {
                 _currentScene.Update(gameTime, Screen);
-                ParseRequests();
-                // some logic if it is playing
-            }
-
-            private void ParseRequests()
-            {
                 if (_requests.Count > 0)
-                    _requests.Dequeue().Request.Invoke(this);
+                    _requests.Dequeue().Request.Execute();
+                // some logic if it is playing
             }
 
             public void LoadScene(Scene scene)
             {
-                if ((scene is ISceneWithCubes && _currentScene is not ISceneWithCubes)
-                    || (_currentScene is ISceneWithCubes && scene is not ISceneWithCubes
-                                                         && GameState == State.Playing
-                                                         && _playStay is PlayStay.PlayerWin or PlayStay.ComputerWin))
-                {
-                    _currentScene = scene;
-                    SceneChange?.Invoke(_currentScene);
-                }
-                else
-                {
-                    throw new InvalidOperationException("Cannot change scene");
-                }
-            }
-
-            public void PlayerMove(Cube pressed)
-            {
-                if (_currentScene is not ISceneWithCubes scene)
-                    throw new InvalidOperationException("Scene does not have cubes");
-
-                var playerCube = new Cube(
-                    pressed.World.Translation + new Vector3(0, Content.CubeSizeWithOffset, 0), Content.Cube);
-
-                scene.AddCube(playerCube);
-                scene.IgnoreCube(pressed);
-                scene.IgnoreCube(playerCube);
+                _currentScene = scene;
+                SceneChange?.Invoke(_currentScene);
             }
         }
-        
     }
 }

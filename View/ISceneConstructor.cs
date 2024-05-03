@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Architecture;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Confinement.View.System
+namespace Confinement.View
 {
     internal interface ISceneConstructor
     {

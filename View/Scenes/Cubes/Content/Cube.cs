@@ -16,11 +16,11 @@ namespace Confinement.View.Scenes.Cubes.Content
         {
         }
 
-        public override void OnPress()
+        public override void OnRelease()
         {
             base.OnPress();
-            GameModel.GameModel.Controller.CreateRequest(
-                new ModelRequest(c => c.PlayerMove(this), this));
+            GameModel.GameModel.Controller.CreateRequest(new ModelRequest(
+                new GameModel.GameModel.PlayerMove(this), this));
         }
     }
 }

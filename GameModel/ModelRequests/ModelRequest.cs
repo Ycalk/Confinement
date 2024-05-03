@@ -9,10 +9,10 @@ namespace Confinement.GameModel
 {
     internal class ModelRequest
     {
-        public Action<GameModel.Controller> Request { get; }
+        public IGamePlot Request { get; }
         public Entity Sender { get; }
 
-        public ModelRequest(Action<GameModel.Controller> request, Entity sender)
+        public ModelRequest(IGamePlot request, Entity sender)
         {
             Request = request;
             Sender = sender;

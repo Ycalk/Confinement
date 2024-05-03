@@ -1,11 +1,12 @@
 ﻿
 
 using System;
+using System.Diagnostics;
 using Architecture;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Confinement.Player
+namespace Confinement
 {
     internal class Player
     {
@@ -24,23 +25,23 @@ namespace Confinement.Player
             var previousState = _mouseState;
             var screen = new Screen(windowWidth, windowHeight, currentState.X, currentState.Y);
 
-            switch (currentState.LeftButton)
-            {
-                case ButtonState.Pressed when previousState.LeftButton == ButtonState.Released:
-                    OnMouseButtonPress(new Vector2(currentState.X, currentState.Y));
-                    break;
-                case ButtonState.Released when previousState.LeftButton == ButtonState.Pressed:
-                    OnMouseButtonRelease(new Vector2(currentState.X, currentState.Y));
-                    break;
-            }
+            Debug.WriteLine(currentState.LeftButton + " " + previousState.LeftButton);
+
+            if (currentState.LeftButton == ButtonState.Pressed 
+                && previousState.LeftButton == ButtonState.Released)
+                OnMouseButtonPress(new Vector2(currentState.X, currentState.Y));
+
+            else if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
+                OnMouseButtonRelease(new Vector2(currentState.X, currentState.Y));
+
 
             if (currentState.X != previousState.X || currentState.Y != previousState.Y)
-                OnMouseMove(new Vector2(previousState.X, previousState.Y), 
+                OnMouseMove(new Vector2(previousState.X, previousState.Y),
                     new Vector2(currentState.X, currentState.Y));
 
             if (screen.Width != _screen.Width && screen.Height != _screen.Height)
                 OnWindowResize(_screen, screen);
-            
+
             var keyboard = Keyboard.GetState();
 
             if (keyboard.IsKeyDown(Keys.Left))
@@ -59,7 +60,7 @@ namespace Confinement.Player
         private void OnMouseButtonRelease(Vector2 position) =>
             MouseButtonRelease?.Invoke(position);
 
-        private void OnMouseButtonPress (Vector2 position) =>
+        private void OnMouseButtonPress(Vector2 position) =>
             MouseButtonPress?.Invoke(position);
 
         private void OnMouseMove(Vector2 previousPosition, Vector2 newPosition) =>

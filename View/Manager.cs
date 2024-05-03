@@ -1,6 +1,5 @@
 ﻿using Architecture;
 using Microsoft.Xna.Framework.Graphics;
-using static Confinement.GameModel.GameModel;
 
 namespace Confinement.View
 {
@@ -8,7 +7,7 @@ namespace Confinement.View
     {
         private Scene _scene;
 
-        public Manager(Controller controller)
+        public Manager(GameModel.GameModel.Controller controller)
         {
             controller.SceneChange += OnSceneChange;
         }

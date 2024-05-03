@@ -26,13 +26,13 @@ namespace Confinement.View.Scenes.MainMenu.Content
         protected override void OnPress()
         {
             Sprite = Press;
-            GameModel.GameModel.Controller.CreateRequest(
-                new ModelRequest(c => c.LoadScene(Cubes.Scene.GetScene()), this));
         }
 
         protected override void OnRelease()
         {
             Sprite = IsHovered ? Hover : _initSprite;
+            GameModel.GameModel.Controller.CreateRequest(new ModelRequest(
+                new GameModel.GameModel.StartButtonPress(), this));
         }
 
         protected override void OnHover()
