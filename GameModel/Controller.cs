@@ -14,11 +14,12 @@ namespace Confinement.GameModel
     {
         internal class Controller
         {
+            public event Action<Scene> SceneChange;
+            public event Action<Vector3> PlayerMove;
+
             private static Queue<ModelRequest> _requests;
             public static void CreateRequest(ModelRequest request) =>
                 _requests.Enqueue(request);
-
-            public event Action<Scene> SceneChange;
             public Controller(Player player, Screen screen)
             {
                 _controller = this;
@@ -60,8 +61,51 @@ namespace Confinement.GameModel
             {
                 _currentScene.Update(gameTime, Screen);
                 if (_requests.Count > 0)
-                    _requests.Dequeue().Request.Execute();
-                // some logic if it is playing
+                    Execute(_requests.Dequeue());
+
+                if (State == GameState.Playing)
+                {
+                    if (_field is null)
+                        throw new InvalidOperationException("Field is not initialized");
+
+                    switch (_playStay)
+                    {
+                        case PlayStay.ComputerMove:
+                            _field.MoveEnemies();
+                            break;
+                        case PlayStay.ComputerWin:
+                            ComputerWin();
+                            break;
+                        case PlayStay.PlayerWin:
+                            PlayerWin();
+                            break;
+                        case PlayStay.PlayerMove:
+                            break;
+                    }
+                }
+            }
+
+            private void Execute(ModelRequest request)
+            {
+                if (request is null)
+                    throw new ArgumentNullException(nameof(request));
+                if (request.Request is PlayerMove move)
+                {
+                    PlayerMove?.Invoke(move.Pressed.World.Translation);
+                    _playStay = PlayStay.ComputerMove;
+                }
+                request.Request.Execute();
+            }
+
+
+            private void PlayerWin()
+            {
+
+            }
+
+            private void ComputerWin()
+            {
+
             }
 
             public void LoadScene(Scene scene)

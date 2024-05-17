@@ -25,7 +25,6 @@ namespace Confinement
             var previousState = _mouseState;
             var screen = new Screen(windowWidth, windowHeight, currentState.X, currentState.Y);
 
-            Debug.WriteLine(currentState.LeftButton + " " + previousState.LeftButton);
 
             if (currentState.LeftButton == ButtonState.Pressed 
                 && previousState.LeftButton == ButtonState.Released)

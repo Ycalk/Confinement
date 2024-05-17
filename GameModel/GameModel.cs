@@ -26,6 +26,7 @@ namespace Confinement.GameModel
         private static PlayStay _playStay;
         private static Scene _currentScene;
         private static Controller _controller;
+        private static Field _field;
 
         static GameModel()
         {

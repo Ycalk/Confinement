@@ -178,7 +178,7 @@ Frame DXCC_ROOT {
             1.000000;
             0.000000; 0.000000; 0.000000;;
             0.000000; 0.000000; 0.000000;;
-            TextureFilename { "CubeTexture.png"; }
+            TextureFilename { "RegularTexture.png"; }
           }
         }
 
