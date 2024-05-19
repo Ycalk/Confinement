@@ -16,8 +16,8 @@ namespace Confinement.GameModel
                 if (!_currentScene.GetEntities<Cube>().Any())
                     throw new InvalidOperationException("Scene does not have cubes");
 
-                var playerCube = new Cube(
-                    Pressed.World.Translation + new Vector3(0, Content.CubeSizeWithOffset, 0), Content.ObstacleCube);
+                var playerCube = new View.Scenes.Cubes.Content.Cube(
+                    Pressed.World.Translation + new Vector3(0, Content.CubeSizeWithOffset, 0), Content.DarkGreyTexture);
 
                 _currentScene.Add(playerCube);
                 _currentScene.Ignore(Pressed);

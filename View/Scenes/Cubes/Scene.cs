@@ -38,26 +38,26 @@ namespace Confinement.View.Scenes.Cubes
                     case GameModel.GameModel.Field.FieldElement.Void:
                         break;
                     case GameModel.GameModel.Field.FieldElement.Empty:
-                        cubes.Add(new Content.Cube(field.ConvertIntoWorldCoordinates(i, j), View.Content.RegularCube));
+                        cubes.Add(new Content.Cube(field.ConvertIntoWorldCoordinates(i, j), View.Content.GreyTexture));
                         break;
                     case GameModel.GameModel.Field.FieldElement.Enemy:
                         var enemy = enemies.First(e => e.Position == new Point(i, j));
                         var cubePosition = field.ConvertIntoWorldCoordinates(i, j);
                         enemy.Cube.MoveTo(cubePosition + new Vector3(0,View.Content.CubeSizeWithOffset,0));
                         cubes.Add(enemy.Cube);
-                        cubes.Add(new Content.Cube(cubePosition, View.Content.RegularCube));
+                        cubes.Add(new Content.Cube(cubePosition, View.Content.GreyTexture));
                         break;
                     case GameModel.GameModel.Field.FieldElement.Obstacle:
                         var coordinate = field.ConvertIntoWorldCoordinates(i, j);
                         cubes.Add(new Content.Cube(
-                            coordinate + new Vector3(0, View.Content.CubeSizeWithOffset, 0), 
-                            View.Content.ObstacleCube));
+                            coordinate + new Vector3(0, View.Content.CubeSizeWithOffset, 0),
+                            View.Content.DarkGreyTexture));
                         cubes.Add(new Content.Cube(
                             coordinate,
-                            View.Content.RegularCube));
+                            View.Content.GreyTexture));
                         break;
                     case GameModel.GameModel.Field.FieldElement.DoubleMove:
-                        cubes.Add(new Content.Cube(field.ConvertIntoWorldCoordinates(i, j), View.Content.DoubleMoveCube));
+                        cubes.Add(new Content.Cube(field.ConvertIntoWorldCoordinates(i, j), View.Content.GreenTexture));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

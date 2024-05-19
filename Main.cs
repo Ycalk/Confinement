@@ -23,6 +23,7 @@ namespace Confinement
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferMultiSampling = true;
             Content.RootDirectory = "Content";
             _graphics.IsFullScreen = true;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -46,7 +47,9 @@ namespace Confinement
 
         protected override void LoadContent()
         {
-            Graphics = GraphicsDevice;
+            Graphics = _graphics.GraphicsDevice;
+            _graphics.GraphicsDevice.PresentationParameters.MultiSampleCount = 10;
+            _graphics.ApplyChanges();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             View.Content.LoadContent(Content);
             _controller.StartModel();

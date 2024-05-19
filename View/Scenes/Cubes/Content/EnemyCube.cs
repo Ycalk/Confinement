@@ -10,7 +10,7 @@ namespace Confinement.View.Scenes.Cubes.Content
 {
     internal class EnemyCube : Cube
     {
-        public EnemyCube() : base(Vector3.Zero, View.Content.EnemyCube)
+        public EnemyCube() : base(Vector3.Zero, View.Content.RedTexture)
         {
         }
     }

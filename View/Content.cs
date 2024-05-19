@@ -20,6 +20,14 @@ namespace Confinement.View
         public static Model ObstacleCube { get; private set; }
         public static Model EnemyCube { get; private set; }
 
+
+        public static Model RoundedCube { get; private set; }
+        
+        public static Texture2D GreyTexture { get; private set; }
+        public static Texture2D DarkGreyTexture { get; private set; }
+        public static Texture2D GreenTexture { get; private set; }
+        public static Texture2D RedTexture { get; private set; }
+
         private static bool _contentLoaded;
 
         public static void LoadContent(ContentManager contentManager)
@@ -32,6 +40,12 @@ namespace Confinement.View
             DoubleMoveCube = contentManager.Load<Model>("Models/DoubleMove");
             ObstacleCube = contentManager.Load<Model>("Models/Obstacle");
             EnemyCube = contentManager.Load<Model>("Models/Enemy");
+
+            RoundedCube = contentManager.Load<Model>("Rounded Cube/RoundedCube");
+            GreyTexture = contentManager.Load<Texture2D>("Rounded Cube/GreyTexture");
+            DarkGreyTexture = contentManager.Load<Texture2D>("Rounded Cube/DarkGreyTexture");
+            GreenTexture = contentManager.Load<Texture2D>("Rounded Cube/GreenTexture");
+            RedTexture = contentManager.Load<Texture2D>("Rounded Cube/RedTexture");
             _contentLoaded = true;
         }
 
