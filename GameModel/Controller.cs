@@ -20,7 +20,9 @@ namespace Confinement.GameModel
             private static Queue<ModelRequest> _requests;
             public static void CreateRequest(ModelRequest request) =>
                 _requests.Enqueue(request);
-            public Controller(Player player, Screen screen)
+
+            private Action _exit;
+            public Controller(Player player, Screen screen, Action exit)
             {
                 _controller = this;
                 player.WindowResize += OnWindowResize;
@@ -31,6 +33,7 @@ namespace Confinement.GameModel
                 player.RightArrowPressing += OnRightArrowPressing;
                 Screen = screen;
                 _requests = new Queue<ModelRequest>();
+                _exit = exit;
             }
 
             public void StartModel()
@@ -38,6 +41,9 @@ namespace Confinement.GameModel
                 _currentScene = View.Scenes.MainMenu.Scene.GetScene();
                 SceneChange?.Invoke(_currentScene);
             }
+
+            public void Exit() =>
+                _exit();
 
             private void OnWindowResize(Screen oldScreen, Screen newScreen) =>
                 Screen = newScreen;
@@ -63,23 +69,23 @@ namespace Confinement.GameModel
                 if (_requests.Count > 0)
                     Execute(_requests.Dequeue());
 
-                if (State == GameState.Playing)
+                if (_state == GameState.Playing)
                 {
                     if (_field is null)
                         throw new InvalidOperationException("Field is not initialized");
 
-                    switch (_playStay)
+                    switch (_playState)
                     {
-                        case PlayStay.ComputerMove:
+                        case PlayState.ComputerMove:
                             _field.MoveEnemies();
                             break;
-                        case PlayStay.ComputerWin:
+                        case PlayState.ComputerWin:
                             ComputerWin();
                             break;
-                        case PlayStay.PlayerWin:
+                        case PlayState.PlayerWin:
                             PlayerWin();
                             break;
-                        case PlayStay.PlayerMove:
+                        case PlayState.PlayerMove:
                             break;
                     }
                 }
@@ -92,7 +98,7 @@ namespace Confinement.GameModel
                 if (request.Request is PlayerMove move)
                 {
                     PlayerMove?.Invoke(move.Pressed.World.Translation);
-                    _playStay = PlayStay.ComputerMove;
+                    _playState = PlayState.ComputerMove;
                 }
                 request.Request.Execute();
             }

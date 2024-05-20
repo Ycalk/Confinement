@@ -1,30 +1,37 @@
-﻿using Architecture.Entities;
-using Architecture.Entities.System;
+﻿using Architecture.Entities.System;
 using Confinement.GameModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Architecture.Entities;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Confinement.View.Scenes.MainMenu.Content
 {
-    internal class StartButton : Button
+    internal class MainMenuButton : Button
     {
-        private readonly GraphicsDevice _graphics;
+        private Sprite Hover => new(View.Content.ButtonHover, Width, Height);
+        private Sprite Press => new(View.Content.ButtonClick, Width, Height);
         private readonly Sprite _initSprite;
-        private Sprite Hover => new(_graphics, Color.Aqua, Width, Height);
-        private Sprite Press => new(_graphics, Color.Red, Width, Height);
         private readonly Position _initPosition;
         private readonly int _offset = 20;
-        public StartButton(GraphicsDevice graphics, Position position, int drawOrder, Sprite sprite)
-            : base(position, drawOrder, sprite, View.Content.RegularFont, Color.White, "Start")
+        private readonly IGamePlot _onRelease;
+
+        public MainMenuButton(Position position, int drawOrder, Sprite sprite, IGamePlot onRelease, string text)
+            : base(position, drawOrder, sprite, View.Content.Regular, Color.Black, text)
         {
-            _graphics = graphics;
             _initSprite = sprite;
             _initPosition = position;
             HoveringTextColor = Color.Black;
+            PressingTextColor = Color.White;
+            _onRelease = onRelease;
         }
 
         protected override void OnPress()
         {
+            base.OnPress();
             Sprite = Press;
         }
 
@@ -32,7 +39,7 @@ namespace Confinement.View.Scenes.MainMenu.Content
         {
             Sprite = IsHovered ? Hover : _initSprite;
             GameModel.GameModel.Controller.CreateRequest(new ModelRequest(
-                new GameModel.GameModel.StartButtonPress(), this));
+               _onRelease, this));
         }
 
         protected override void OnHover()

@@ -10,15 +10,15 @@ namespace Confinement.GameModel
         {
             public void Execute()
             {
-                if (State == GameState.MainMenu)
+                if (_state == GameState.MainMenu)
                 {
                     var fieldSize = 31;
-                    State = GameState.Playing;
+                    _state = GameState.Playing;
                     _field = new Field(fieldSize, 
                         (new SmartEnemy(), new EnemyCube()), 
                         (new SmartEnemy(), new EnemyCube()),
                         (new SmartEnemy(), new EnemyCube()));
-                    _playStay = PlayStay.PlayerMove;
+                    _playState = PlayState.PlayerMove;
                     _controller.LoadScene(View.Scenes.Cubes.Scene.GetScene(_field, 70));
                 }
             }

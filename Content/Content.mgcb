@@ -13,6 +13,49 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Buttons/ButtonClick.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Buttons/ButtonClick.png
+
+#begin Buttons/ButtonHover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Buttons/ButtonHover.png
+
+#begin Buttons/ButtonRegular.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Buttons/ButtonRegular.png
+
+#begin Fonts/GameName.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/GameName.spritefont
+
 #begin Fonts/Regular.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -96,7 +139,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Models/Regular.x
 
-#begin Rounded Cube/DarkGreyTexture.png
+#begin RoundedCube/DarkGreyTexture.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -106,9 +149,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Rounded Cube/DarkGreyTexture.png
+/build:RoundedCube/DarkGreyTexture.png
 
-#begin Rounded Cube/GreenTexture.png
+#begin RoundedCube/GreenTexture.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -118,9 +161,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Rounded Cube/GreenTexture.png
+/build:RoundedCube/GreenTexture.png
 
-#begin Rounded Cube/GreyTexture.png
+#begin RoundedCube/GreyTexture.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -130,9 +173,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Rounded Cube/GreyTexture.png
+/build:RoundedCube/GreyTexture.png
 
-#begin Rounded Cube/RedTexture.png
+#begin RoundedCube/RedTexture.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -142,9 +185,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Rounded Cube/RedTexture.png
+/build:RoundedCube/RedTexture.png
 
-#begin Rounded Cube/RoundedCube.fbx
+#begin RoundedCube/RoundedCube.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -161,5 +204,5 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Rounded Cube/RoundedCube.fbx
+/build:RoundedCube/RoundedCube.fbx
 

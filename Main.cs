@@ -31,7 +31,7 @@ namespace Confinement
             _player = new Player();
             var mouseState = Mouse.GetState();
             _controller = new GameModel.GameModel.Controller(_player,
-                new Screen(Window.ClientBounds.Width, Window.ClientBounds.Height, mouseState.X, mouseState.Y));
+                new Screen(Window.ClientBounds.Width, Window.ClientBounds.Height, mouseState.X, mouseState.Y), Exit);
             _viewManager = new Manager(_controller);
         }
 

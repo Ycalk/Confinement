@@ -101,12 +101,12 @@ namespace Confinement.GameModel
                     return;
                 }
 
-                _playStay = _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] switch
+                _playState = _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] switch
                 {
-                    FieldElement.Void => PlayStay.ComputerWin,
+                    FieldElement.Void => PlayState.ComputerWin,
                     FieldElement.Obstacle => throw new InvalidOperationException("Cannot move enemy to obstacle"),
                     FieldElement.Enemy => throw new InvalidOperationException("Cannot move enemy to enemy"),
-                    _ => PlayStay.PlayerMove
+                    _ => PlayState.PlayerMove
                 };
 
                 _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] = FieldElement.Enemy;

@@ -6,7 +6,7 @@ namespace Confinement.GameModel
 {
     internal static partial class GameModel
     {
-        private enum PlayStay
+        private enum PlayState
         {
             PlayerMove,
             ComputerMove,
@@ -20,17 +20,17 @@ namespace Confinement.GameModel
             Playing,
         }
 
-        public static GameState State { get; private set; }
+        private static GameState _state;
         public static Screen Screen { get; private set; }
 
-        private static PlayStay _playStay;
+        private static PlayState _playState;
         private static Scene _currentScene;
         private static Controller _controller;
         private static Field _field;
 
         static GameModel()
         {
-            State = GameState.MainMenu;
+            _state = GameState.MainMenu;
         }
     }
 }
