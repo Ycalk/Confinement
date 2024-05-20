@@ -26,57 +26,65 @@ namespace Confinement.View.Scenes.Cubes
         {
         }
 
-        public static Architecture.Scene GetScene(GameModel.GameModel.Field field)
+        public static Architecture.Scene GetScene(GameModel.GameModel.Field field, float distance)
         {
+            var toIgnore = new List<Cube>();
             var enemies = field.Enemies;
             var cubes = new List<Cube>();
             for (var i = 0; i < field.Size; i++)
             for (var j = 0; j < field.Size; j++)
             {
+                var position = field.ConvertIntoWorldCoordinates(i, j);
                 switch (field[i,j])
                 {
                     case GameModel.GameModel.Field.FieldElement.Void:
                         break;
                     case GameModel.GameModel.Field.FieldElement.Empty:
-                        cubes.Add(new Content.Cube(field.ConvertIntoWorldCoordinates(i, j), View.Content.GreyTexture));
+                        cubes.Add(new Content.Cube(position, View.Content.GreyTexture));
                         break;
                     case GameModel.GameModel.Field.FieldElement.Enemy:
                         var enemy = enemies.First(e => e.Position == new Point(i, j));
-                        var cubePosition = field.ConvertIntoWorldCoordinates(i, j);
-                        enemy.Cube.MoveTo(cubePosition + new Vector3(0,View.Content.CubeSizeWithOffset,0));
-                        cubes.Add(enemy.Cube);
-                        cubes.Add(new Content.Cube(cubePosition, View.Content.GreyTexture));
+                        var underEnemy = new Content.Cube(position, View.Content.GreyTexture);
+
+                        enemy.Cube.MoveTo(position + new Vector3(0,View.Content.CubeSizeWithOffset,0));
+
+                        cubes.AddRange(new[] { enemy.Cube, underEnemy });
+                        toIgnore.AddRange(new[] { enemy.Cube, underEnemy });
                         break;
                     case GameModel.GameModel.Field.FieldElement.Obstacle:
-                        var coordinate = field.ConvertIntoWorldCoordinates(i, j);
-                        cubes.Add(new Content.Cube(
-                            coordinate + new Vector3(0, View.Content.CubeSizeWithOffset, 0),
-                            View.Content.DarkGreyTexture));
-                        cubes.Add(new Content.Cube(
-                            coordinate,
-                            View.Content.GreyTexture));
+
+                        var cube = new Content.Cube(
+                            position + new Vector3(0, View.Content.CubeSizeWithOffset, 0),
+                            View.Content.DarkGreyTexture);
+
+                        var underCube = new Content.Cube(
+                            position,
+                            View.Content.GreyTexture);
+
+                        cubes.AddRange(new[] { cube, underCube });
+                        toIgnore.AddRange(new[] { cube, underCube });
                         break;
                     case GameModel.GameModel.Field.FieldElement.DoubleMove:
-                        cubes.Add(new Content.Cube(field.ConvertIntoWorldCoordinates(i, j), View.Content.GreenTexture));
+                        cubes.Add(new Content.Cube(position, View.Content.GreenTexture));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            return new Scene(
+            var result = new Scene(
                 Array.Empty<Button>(),
                 Array.Empty<Image>(),
                 Array.Empty<Text>(),
                 cubes,
                 Main.Graphics,
-                40,
+                distance,
                 Sprite.GeSolidColorTexture(Main.Graphics, Color.White,
                     GameModel.GameModel.Screen.Width, GameModel.GameModel.Screen.Height)
             );
-
+            foreach (var ignoring in toIgnore)
+                result.Ignore(ignoring);
+            return result;
         }
-
-        
 
         public static Architecture.Scene GetScene(int fieldSize)
         {

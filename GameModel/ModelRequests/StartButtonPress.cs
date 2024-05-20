@@ -12,13 +12,14 @@ namespace Confinement.GameModel
             {
                 if (State == GameState.MainMenu)
                 {
-                    var fieldSize = 11;
+                    var fieldSize = 31;
                     State = GameState.Playing;
-                    var enemy = new EnemyCube();
-                    _field = new Field(fieldSize, (new SmartEnemy(), enemy));
+                    _field = new Field(fieldSize, 
+                        (new SmartEnemy(), new EnemyCube()), 
+                        (new SmartEnemy(), new EnemyCube()),
+                        (new SmartEnemy(), new EnemyCube()));
                     _playStay = PlayStay.PlayerMove;
-                    _controller.LoadScene(View.Scenes.Cubes.Scene.GetScene(_field));
-                    _currentScene.Ignore(enemy);
+                    _controller.LoadScene(View.Scenes.Cubes.Scene.GetScene(_field, 70));
                 }
             }
 

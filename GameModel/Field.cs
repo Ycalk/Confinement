@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -74,8 +75,9 @@ namespace Confinement.GameModel
 
             public void MoveEnemies()
             {
+                var cubes = _currentScene.GetEntities<Cube>().ToArray();
                 foreach (var enemy in _enemies)
-                    MoveEnemy(enemy);
+                    MoveEnemy(enemy, cubes);
             }
 
             private void OnPlayerMove(Vector3 newCube)
@@ -84,7 +86,7 @@ namespace Confinement.GameModel
                 _fieldElements[convertedPosition.X, convertedPosition.Y] = FieldElement.Obstacle;
             }
 
-            private void MoveEnemy(Enemy enemy)
+            private void MoveEnemy(Enemy enemy, Cube[] cubes)
             {
                 if (!enemy.IsAlive)
                     return;
@@ -95,6 +97,7 @@ namespace Confinement.GameModel
                 if (enemyStartPosition == enemyNewPosition)
                 {
                     enemy.IsAlive = false;
+                    enemy.Cube.Disappear(1f);
                     return;
                 }
 
@@ -109,10 +112,21 @@ namespace Confinement.GameModel
                 _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] = FieldElement.Enemy;
                 _fieldElements[enemyStartPosition.X, enemyStartPosition.Y] = FieldElement.Empty;
 
-                enemy.Cube.MoveTo(ConvertIntoWorldCoordinates(enemyNewPosition) + new Vector3(0,Content.CubeSizeWithOffset,0));
+                var underEnemy = GetCube(enemyStartPosition, cubes);
+                var newUnderEnemy = GetCube(enemyNewPosition, cubes);
+
+                if (underEnemy is not null)
+                    _currentScene.DisableIgnore(underEnemy);
+                
+                if (newUnderEnemy is not null)
+                    _currentScene.Ignore(newUnderEnemy);
+
+                enemy.Cube.MoveTo(ConvertIntoWorldCoordinates(enemyNewPosition) + new Vector3(0,Content.CubeSizeWithOffset,0), 0.1f);
                 enemy.Position = enemyNewPosition;
             }
 
+            private Cube? GetCube (Point position, IEnumerable<Cube> cubes) =>
+                cubes.FirstOrDefault(c => c.Position == ConvertIntoWorldCoordinates(position));
 
             public Point ConvertIntoFieldCoordinates(Vector3 position) =>
                 new (
