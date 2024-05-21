@@ -81,9 +81,22 @@ namespace Confinement.View.Scenes.Cubes
                 Sprite.GeSolidColorTexture(Main.Graphics, Color.White,
                     GameModel.GameModel.Screen.Width, GameModel.GameModel.Screen.Height)
             );
+            CreateUi(result);
             foreach (var ignoring in toIgnore)
                 result.Ignore(ignoring);
             return result;
+        }
+
+        private static void CreateUi(Scene scene)
+        {
+            var pauseButton = new Content.PauseButton(
+                new Position(new Vector2(10, 10), PositionType.Percents),
+                View.Content.PauseButtonRegular,
+                View.Content.PauseButtonHover,
+                View.Content.PauseButtonClick,
+                100, 100,
+                0, new GameModel.GameModel.PauseGame());
+            scene.Add(pauseButton);
         }
 
         public static Architecture.Scene GetScene(int fieldSize)

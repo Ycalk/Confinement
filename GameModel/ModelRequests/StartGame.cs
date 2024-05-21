@@ -6,13 +6,13 @@ namespace Confinement.GameModel
 {
     internal partial class GameModel
     {
-        internal class StartButtonPress : IGamePlot
+        internal class StartGame : IGamePlot
         {
             public void Execute()
             {
                 if (_state == GameState.MainMenu)
                 {
-                    var fieldSize = 31;
+                    var fieldSize = 25;
                     _state = GameState.Playing;
                     _field = new Field(fieldSize, 
                         (new SmartEnemy(), new EnemyCube()), 
@@ -22,10 +22,6 @@ namespace Confinement.GameModel
                     _controller.LoadScene(View.Scenes.Cubes.Scene.GetScene(_field, 70));
                 }
             }
-
-            
         }
     }
-
-    
 }

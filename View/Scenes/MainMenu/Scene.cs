@@ -26,12 +26,12 @@ namespace Confinement.View.Scenes.MainMenu
         {
             var startButton = new MainMenuButton(
                 new Position(50, 30, PositionType.Percents), 1,
-                new Sprite(View.Content.ButtonRegular, 300, 100), new GameModel.GameModel.StartButtonPress(),
+                new Sprite(View.Content.ButtonRegular, 300, 100), new GameModel.GameModel.StartGame(),
                 "Start");
 
             var exitButton = new MainMenuButton(
                 new Position(50, 50, PositionType.Percents), 1,
-                new Sprite(View.Content.ButtonRegular, 300, 100), new GameModel.GameModel.ExitButtonPress(),
+                new Sprite(View.Content.ButtonRegular, 300, 100), new GameModel.GameModel.ExitGame(),
                 "Exit");
 
             var gameName = new Text(new Position(50, 10, PositionType.Percents), 0,

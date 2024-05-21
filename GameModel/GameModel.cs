@@ -10,6 +10,7 @@ namespace Confinement.GameModel
         {
             PlayerMove,
             ComputerMove,
+            Pause,
             PlayerWin,
             ComputerWin,
         }

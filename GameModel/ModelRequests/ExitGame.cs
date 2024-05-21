@@ -8,7 +8,7 @@ namespace Confinement.GameModel
 {
     internal partial class GameModel
     {
-        internal class ExitButtonPress : IGamePlot
+        internal class ExitGame : IGamePlot
         {
             public void Execute()
             {
