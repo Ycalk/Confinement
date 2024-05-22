@@ -25,21 +25,21 @@ namespace Confinement.View.Scenes.MainMenu
         public static Architecture.Scene GetScene()
         {
             var startButton = new MainMenuButton(
-                new Position(50, 30, PositionType.Percents), 1,
+                new Position(50, 60, PositionType.Percents), 1,
                 new Sprite(View.Content.ButtonRegular, 300, 100), new GameModel.GameModel.StartGame(),
                 "Start");
 
             var exitButton = new MainMenuButton(
-                new Position(50, 50, PositionType.Percents), 1,
+                new Position(50, 75, PositionType.Percents), 1,
                 new Sprite(View.Content.ButtonRegular, 300, 100), new GameModel.GameModel.ExitGame(),
                 "Exit");
 
-            var gameName = new Text(new Position(50, 10, PositionType.Percents), 0,
-                View.Content.GameName, Color.Black, Main.GameName);
+            var gameImage = new Image(new Position(50, 20, PositionType.Percents),
+                new Sprite(View.Content.MainMenuImage, 500, 500), 1);
 
             return new Scene(new[] { startButton, exitButton },
-                Array.Empty<Image>(),
-                new[] { gameName },
+                new[] { gameImage },
+                Array.Empty<Text>(),
                 Array.Empty<Cube>(),
                 Main.Graphics,
                 Sprite.GeSolidColorTexture(Main.Graphics, Color.White,

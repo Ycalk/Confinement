@@ -18,6 +18,7 @@ namespace Confinement.View
         public const float CubeSize = 2.0f;
         public const float CubeSizeWithOffset = 2.1f;
         public static Texture2D TranslucentBlack { get; private set; }
+        public static Texture2D MainMenuImage { get; private set; }
 
         public static SpriteFont Regular { get; private set; }
         public static SpriteFont GameName { get; private set; }
@@ -51,6 +52,7 @@ namespace Confinement.View
             if (_contentLoaded)
                 return;
             TranslucentBlack = contentManager.Load<Texture2D>("Buttons/TranslucentBlack");
+            MainMenuImage = contentManager.Load<Texture2D>("MainMenuImage");
 
             Regular = contentManager.Load<SpriteFont>("Fonts/Regular");
             GameName = contentManager.Load<SpriteFont>("Fonts/GameName");
