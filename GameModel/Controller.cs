@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Architecture;
 using Architecture.Entities;
@@ -31,8 +32,12 @@ namespace Confinement.GameModel
                 player.MouseButtonPress += OnMouseButtonPress;
                 player.MouseButtonRelease += OnMouseButtonRelease;
                 player.MouseMove += OnMouseMove;
+
                 player.LeftArrowPressing += OnLeftArrowPress;
                 player.RightArrowPressing += OnRightArrowPress;
+                player.UpArrowPressing += OnUpArrowPress;
+                player.DownArrowPressing += OnDownArrowPress;
+
                 Screen = screen;
                 _requests = new Queue<ModelRequest>();
                 _exit = exit;
@@ -156,6 +161,18 @@ namespace Confinement.GameModel
             {
                 if (_playState != PlayState.Pause)
                     _currentScene.RightArrowPress();
+            }
+
+            private void OnUpArrowPress()
+            {
+                if (_playState != PlayState.Pause)
+                    _currentScene.UpArrowPress();
+            }
+
+            private void OnDownArrowPress()
+            {
+                if (_playState != PlayState.Pause)
+                    _currentScene.DownArrowPress();
             }
                 
         }

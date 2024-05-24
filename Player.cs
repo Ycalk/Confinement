@@ -14,6 +14,8 @@ namespace Confinement
         public event Action<Vector2> MouseButtonRelease;
         public event Action LeftArrowPressing;
         public event Action RightArrowPressing;
+        public event Action UpArrowPressing;
+        public event Action DownArrowPressing;
         public event Action<Vector2, Vector2> MouseMove;
         public event Action<Screen, Screen> WindowResize;
 
@@ -48,6 +50,12 @@ namespace Confinement
 
             if (keyboard.IsKeyDown(Keys.Right))
                 RightArrowPressing?.Invoke();
+
+            if (keyboard.IsKeyDown(Keys.Up))
+                UpArrowPressing?.Invoke();
+
+            if (keyboard.IsKeyDown(Keys.Down))
+                DownArrowPressing?.Invoke();
 
             _screen = screen;
             _mouseState = currentState;

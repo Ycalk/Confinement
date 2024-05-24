@@ -23,6 +23,7 @@ namespace Confinement
         public Main()
         {
             _graphics = new GraphicsDeviceManager(this);
+            
             _graphics.PreferMultiSampling = true;
             Content.RootDirectory = "Content";
             _graphics.IsFullScreen = true;

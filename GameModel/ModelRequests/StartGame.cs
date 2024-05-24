@@ -17,6 +17,8 @@ namespace Confinement.GameModel
                     _field = new Field(fieldSize, 
                         (new SmartEnemy(), new EnemyCube()), 
                         (new SmartEnemy(), new EnemyCube()),
+                        (new SmartEnemy(), new EnemyCube()),
+                        (new SmartEnemy(), new EnemyCube()),
                         (new SmartEnemy(), new EnemyCube()));
                     _playState = PlayState.PlayerMove;
                     _controller.LoadScene(View.Scenes.Cubes.Scene.GetScene(_field, 70));
