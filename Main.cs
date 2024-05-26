@@ -26,9 +26,9 @@ namespace Confinement
             
             _graphics.PreferMultiSampling = true;
             Content.RootDirectory = "Content";
-            _graphics.IsFullScreen = true;
-            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            //_graphics.IsFullScreen = true;
+            //_graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            //_graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _player = new Player();
             var mouseState = Mouse.GetState();
             _controller = new GameModel.GameModel.Controller(_player,

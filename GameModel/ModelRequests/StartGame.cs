@@ -2,6 +2,8 @@
 using Confinement.View;
 using Confinement.View.Scenes.Cubes.Content;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
+using System;
 
 namespace Confinement.GameModel
 {
@@ -11,13 +13,15 @@ namespace Confinement.GameModel
         {
             public void Execute()
             {
+                if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
+                    throw new InvalidOperationException("Method can only be execute in controller");
                 if (_state == GameState.MainMenu)
                 {
-                    var fieldSize = 65;
+                    var fieldSize = 35;
                     _state = GameState.Playing;
                     _field = new Field(fieldSize, 
-                        new MazeScaling(2, .26),
-                        new NormalDistribution(Field.FieldElement.DoubleMove, fieldSize),
+                        new MazeScaling(2, .25),
+                        new NormalDistribution(Field.FieldElement.DoubleMove, fieldSize * 3),
                         (new SmartEnemy(), new EnemyCube()), 
                         (new SmartEnemy(), new EnemyCube()),
                         (new SmartEnemy(), new EnemyCube()),

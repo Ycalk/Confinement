@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Architecture.Entities;
 using Confinement.View;
@@ -13,6 +14,8 @@ namespace Confinement.GameModel
             public Cube Pressed { get; }
             public void Execute()
             {
+                if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
+                    throw new InvalidOperationException("Method can only be execute in controller");
                 if (!_currentScene.GetEntities<Cube>().Any())
                     throw new InvalidOperationException("Scene does not have cubes");
 

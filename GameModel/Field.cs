@@ -12,6 +12,7 @@ using Architecture.Entities.System;
 using Confinement.GameModel.PositionsGenerator;
 using Confinement.View;
 using Microsoft.Xna.Framework;
+using static Confinement.GameModel.GameModel.Field;
 
 namespace Confinement.GameModel
 {
@@ -104,13 +105,11 @@ namespace Confinement.GameModel
                     return;
                 }
 
-                _playState = _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] switch
-                {
-                    FieldElement.Void => PlayState.ComputerWin,
-                    FieldElement.Obstacle => throw new InvalidOperationException("Cannot move enemy to obstacle"),
-                    FieldElement.Enemy => throw new InvalidOperationException("Cannot move enemy to enemy"),
-                    _ => PlayState.PlayerMove
-                };
+                if (_fieldElements[enemyNewPosition.X, enemyNewPosition.Y] is FieldElement.Obstacle
+                    or FieldElement.Enemy)
+                    return;
+
+                _playState = _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] == FieldElement.Void ? PlayState.ComputerWin : PlayState.PlayerMove;
 
                 _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] = FieldElement.Enemy;
                 _fieldElements[enemyStartPosition.X, enemyStartPosition.Y] = FieldElement.Empty;

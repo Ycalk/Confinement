@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Architecture;
 using Architecture.Entities;
 using Architecture.Entities.System;
@@ -95,7 +96,7 @@ namespace Confinement.GameModel
                 switch (_playState)
                 {
                     case PlayState.ComputerMove:
-                        _field.MoveEnemies();
+                        Task.Run(() => _field.MoveEnemies());
                         break;
                     case PlayState.ComputerWin:
                         ComputerWin();

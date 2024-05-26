@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Architecture.Entities;
 using Architecture.Entities.System;
 using Confinement.View;
@@ -13,6 +15,9 @@ namespace Confinement.GameModel
         {
             public void Execute()
             {
+                if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
+                    throw new InvalidOperationException("Method can only be execute in controller");
+
                 var entities = new List<Entity>();
 
                 var pauseBackground = new Image(new Position(50, 50, PositionType.Percents),
