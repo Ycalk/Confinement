@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Architecture.Entities;
 using Architecture.Entities.System;
+using Confinement.GameModel.PositionsGenerator;
 using Confinement.View;
 using Microsoft.Xna.Framework;
 
@@ -53,7 +54,8 @@ namespace Confinement.GameModel
             private readonly List<Enemy> _enemies = new();
             public ReadOnlyCollection<Enemy> Enemies => _enemies.AsReadOnly();
 
-            public Field(int size, params (IEnemyAlgorithm algorithm, Cube cube)[] enemies)
+            public Field(int size, IPositionsGenerator obstaclePositions, IPositionsGenerator doubleMovePositions,
+                params (IEnemyAlgorithm algorithm, Cube cube)[] enemies)
             {
                 _fieldElements = new FieldElement[size, size];
                 _controller.PlayerMove += OnPlayerMove;
@@ -69,6 +71,8 @@ namespace Confinement.GameModel
                     throw new ArgumentException("Size must be odd");
 
                 MakeField();
+                AddElements(obstaclePositions, FieldElement.Obstacle);
+                AddElements(doubleMovePositions, FieldElement.DoubleMove);
                 MakeFieldCircled();
                 SpawnEnemies(enemies);
             }
@@ -76,8 +80,7 @@ namespace Confinement.GameModel
             public void MoveEnemies()
             {
                 var cubes = _currentScene.GetEntities<Cube>().ToArray();
-                foreach (var enemy in _enemies)
-                    MoveEnemy(enemy, cubes);
+                Parallel.ForEach(_enemies, enemy => MoveEnemy(enemy, cubes));
             }
 
             private void OnPlayerMove(Vector3 newCube)
@@ -143,18 +146,11 @@ namespace Confinement.GameModel
 
             private void MakeField()
             {
-                var random = new Random();
                 for (var i = 0; i < Size; i++)
                 for (var j = 0; j < Size; j++)
                 {
-                    var randomNum = random.Next(100);
-                    _fieldElements[i, j] = FieldElement.Empty;
-
-                    if (randomNum < 5)
-                        _fieldElements[i, j] = FieldElement.Obstacle;
-
-                    else if (randomNum is > 5 and < 10)
-                        _fieldElements[i, j] = FieldElement.DoubleMove;
+                    if (_fieldElements[i, j] == FieldElement.Void);
+                        _fieldElements[i,j] = FieldElement.Empty;
 
                     if (i == 0 || j == 0 || i == Size - 1 || j == Size - 1)
                         _fieldElements[i, j] = FieldElement.Void;
@@ -179,6 +175,15 @@ namespace Confinement.GameModel
                 _fieldElements[Size - 3, Size - 2] = FieldElement.Void;
                 _fieldElements[Size - 2, Size - 3] = FieldElement.Void;
             }
+
+
+            private void AddElements(IPositionsGenerator generator, FieldElement element)
+            {
+                foreach (var position in generator.GeneratePositions(Size))
+                    _fieldElements[position.X, position.Y] = element;
+                    
+            }
+
 
             private void SpawnEnemies(IReadOnlyList<(IEnemyAlgorithm algorithm, Cube cube)> enemies)
             {
