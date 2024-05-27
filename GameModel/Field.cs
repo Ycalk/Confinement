@@ -12,8 +12,10 @@ using Architecture.Entities;
 using Architecture.Entities.System;
 using Confinement.GameModel.PositionsGenerator;
 using Confinement.View;
+using Confinement.View.Scenes.Cubes.Content;
 using Microsoft.Xna.Framework;
 using static Confinement.GameModel.GameModel.Field;
+using Cube = Architecture.Entities.Cube;
 
 namespace Confinement.GameModel
 {
@@ -24,6 +26,7 @@ namespace Confinement.GameModel
             public class Enemy
             {
                 public Point Position { get; set; }
+                public Vector3 WorldPosition => _field.ConvertIntoWorldCoordinates(Position);
                 public IEnemyAlgorithm Algorithm { get; set; }
 
                 public Cube Cube { get; set; }
@@ -86,9 +89,8 @@ namespace Confinement.GameModel
                 if (_isMoving)
                     return;
                 _isMoving = true;
-                var cubes = _currentScene.GetEntities<Cube>().ToArray();
                 foreach (var enemy in _enemies)
-                    MoveEnemy(enemy, cubes);
+                    MoveEnemy(enemy, _currentScene.GetEntities<Cube>().ToArray());
 
                 if (_enemies.All(enemy => !enemy.IsAlive))
                     _playState = PlayState.PlayerWin;
@@ -116,6 +118,7 @@ namespace Confinement.GameModel
                 {
                     enemy.IsAlive = false;
                     enemy.Cube.Disappear(1f);
+                    RemoveEnemyButton(enemy);
                     return;
                 }
 
@@ -142,22 +145,37 @@ namespace Confinement.GameModel
                 enemy.Position = enemyNewPosition;
             }
 
+            private void RemoveEnemyButton(Enemy enemy)
+            {
+                var button = _currentScene.GetEntities<Button>()
+                    .Where(b => b is InterfaceButton)
+                    .Cast<InterfaceButton>()
+                    .FirstOrDefault(b => 
+                        b.ReleaseAction is ChangeCameraTarget changeCameraTarget 
+                        && changeCameraTarget.Target == enemy);
+                if (button is null)
+                    throw new InvalidOperationException("Button not found");
+                _currentScene.Remove(button);
+            }
+
             private Cube? GetCube (Point position, IEnumerable<Cube> cubes) =>
-                cubes.FirstOrDefault(c => c.Position == ConvertIntoWorldCoordinates(position));
+                cubes.FirstOrDefault(c => RoundVector(c.Position) == RoundVector(ConvertIntoWorldCoordinates(position)));
+
+            private Vector3 RoundVector(Vector3 vector) =>
+                new((float)Math.Round(vector.X, 1), (float)Math.Round(vector.Y, 1), (float)Math.Round(vector.Z, 1));
 
             public Point ConvertIntoFieldCoordinates(Vector3 position) =>
                 new (
-                        (int)((position.X + _currentScene.CameraDelta.X) / View.Content.CubeSizeWithOffset + Size / 2),
-                        (int)((position.Z + _currentScene.CameraDelta.Z) / View.Content.CubeSizeWithOffset + Size / 2)
+                        (int)((position.X + _currentScene.CameraDelta.X) / Content.CubeSizeWithOffset + Size / 2),
+                        (int)((position.Z + _currentScene.CameraDelta.Z) / Content.CubeSizeWithOffset + Size / 2)
                     );
-                
 
             public Vector3 ConvertIntoWorldCoordinates(Point point) =>
                 ConvertIntoWorldCoordinates(point.X, point.Y);
 
             public Vector3 ConvertIntoWorldCoordinates(int x, int y) =>
-                new(View.Content.CubeSizeWithOffset * (x - Size / 2) - _currentScene.CameraDelta.X, 
-                    0, View.Content.CubeSizeWithOffset * (y - Size / 2) - _currentScene.CameraDelta.Z);
+                new(Content.CubeSizeWithOffset * (x - Size / 2) - _currentScene.CameraDelta.X, 
+                    0, Content.CubeSizeWithOffset * (y - Size / 2) - _currentScene.CameraDelta.Z);
 
             private void MakeField()
             {

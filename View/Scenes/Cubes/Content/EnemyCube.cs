@@ -14,11 +14,5 @@ namespace Confinement.View.Scenes.Cubes.Content
         public EnemyCube() : base(Vector3.Zero, View.Content.RedTexture)
         {
         }
-
-        public override void OnRelease()
-        {
-            GameModel.GameModel.Controller.CreateRequest(new ModelRequest(
-                new GameModel.GameModel.ChangeCameraTarget(Position), this));
-        }
     }
 }

@@ -20,12 +20,12 @@ namespace Confinement.GameModel
                     throw new InvalidOperationException("Scene does not have cubes");
 
                 var playerCube = new View.Scenes.Cubes.Content.Cube(
-                    Pressed.World.Translation, Content.DarkGreyTexture);
+                    Pressed.Position, Content.DarkGreyTexture);
 
                 _currentScene.Add(playerCube);
                 _currentScene.Ignore(Pressed);
                 _currentScene.Ignore(playerCube);
-                playerCube.MoveTo(Pressed.World.Translation + new Vector3(0, Content.CubeSizeWithOffset, 0), 0.13f, false);
+                playerCube.MoveTo(Pressed.Position + new Vector3(0, Content.CubeSizeWithOffset, 0), 0.13f, false);
             }
 
             public PlayerMove(Cube pressed)

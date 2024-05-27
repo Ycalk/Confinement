@@ -88,6 +88,8 @@ namespace Confinement.GameModel
                 _currentScene.Update(gameTime, Screen);
                 if (_requests.Count > 0)
                     Execute(_requests.Dequeue());
+                if (_requests.Count > 0)
+                    _requests.Clear();
 
                 if (_state != GameState.Playing) return;
 
@@ -127,7 +129,7 @@ namespace Confinement.GameModel
                     if (_playState == PlayState.PlayerMove)
                     {
                         request.Request.Execute();
-                        PlayerMove?.Invoke(move.Pressed.World.Translation);
+                        PlayerMove?.Invoke(move.Pressed.Position);
                     }
                     _playState = PlayState.ComputerMove;
                 }

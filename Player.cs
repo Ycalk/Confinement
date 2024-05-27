@@ -45,18 +45,18 @@ namespace Confinement
 
             var keyboard = Keyboard.GetState();
 
-            if (keyboard.IsKeyDown(Keys.Left))
+            if (keyboard.IsKeyDown(Keys.Left) || keyboard.IsKeyDown(Keys.A))
                 LeftArrowPressing?.Invoke();
 
-            if (keyboard.IsKeyDown(Keys.Right))
+            if (keyboard.IsKeyDown(Keys.Right) || keyboard.IsKeyDown(Keys.D))
                 RightArrowPressing?.Invoke();
 
-            if (keyboard.IsKeyDown(Keys.Up))
+            if (keyboard.IsKeyDown(Keys.Up) || keyboard.IsKeyDown(Keys.W))
                 UpArrowPressing?.Invoke();
 
-            if (keyboard.IsKeyDown(Keys.Down))
+            if (keyboard.IsKeyDown(Keys.Down) || keyboard.IsKeyDown(Keys.S))
                 DownArrowPressing?.Invoke();
-
+            
             _screen = screen;
             _mouseState = currentState;
         }

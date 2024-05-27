@@ -8,19 +8,19 @@ namespace Confinement.GameModel
     {
         internal class ChangeCameraTarget : IGamePlot
         {
-            private readonly Vector3 _newTarget;
+            public readonly Field.Enemy Target;
 
             public void Execute()
             {
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");
-                
-                _currentScene.ChangeCameraTarget(_newTarget);
+                var target = new Vector3(Target.WorldPosition.X, 0, Target.WorldPosition.Z);
+                _currentScene.ChangeCameraTarget(target);
             }
 
-            public ChangeCameraTarget(Vector3 newTarget)
+            public ChangeCameraTarget(Field.Enemy enemy)
             {
-                _newTarget = newTarget;
+                Target = enemy;
             }
         }
     }

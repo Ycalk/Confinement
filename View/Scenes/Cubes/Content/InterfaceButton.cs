@@ -16,18 +16,18 @@ namespace Confinement.View.Scenes.Cubes.Content
         private readonly Sprite _hover;
         private readonly Sprite _press;
         private readonly Sprite _init;
-        private readonly IGamePlot _onRelease;
+        public readonly IGamePlot ReleaseAction;
 
         public InterfaceButton(Position position, 
             Texture2D init, Texture2D hover, Texture2D click, 
             int width, int height,
-            int drawOrder, IGamePlot onRelease, string text = "") 
+            int drawOrder, IGamePlot releaseAction, string text = "") 
             : base(position, drawOrder, new Sprite(init, width, height), View.Content.Regular, Color.Black, text)
         {
             _init = new Sprite(init, width, height);
             _hover = new Sprite(hover, width, height);
             _press = new Sprite(click, width, height);
-            _onRelease = onRelease;
+            ReleaseAction = releaseAction;
             PressingTextColor = Color.Black;
             HoveringTextColor = Color.Black;
         }
@@ -42,7 +42,7 @@ namespace Confinement.View.Scenes.Cubes.Content
         {
             Sprite = IsHovered ? _hover : _init;
             GameModel.GameModel.Controller.CreateRequest(new ModelRequest(
-                _onRelease, this));
+                ReleaseAction, this));
         }
 
         protected override void OnHover()
