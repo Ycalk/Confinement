@@ -11,14 +11,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Confinement.View.Scenes.Cubes.Content
 {
-    internal class PauseButton : Button
+    internal class InterfaceButton : Button
     {
         private readonly Sprite _hover;
         private readonly Sprite _press;
         private readonly Sprite _init;
         private readonly IGamePlot _onRelease;
 
-        public PauseButton(Position position, 
+        public InterfaceButton(Position position, 
             Texture2D init, Texture2D hover, Texture2D click, 
             int width, int height,
             int drawOrder, IGamePlot onRelease, string text = "") 

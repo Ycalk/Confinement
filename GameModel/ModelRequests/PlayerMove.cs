@@ -25,7 +25,7 @@ namespace Confinement.GameModel
                 _currentScene.Add(playerCube);
                 _currentScene.Ignore(Pressed);
                 _currentScene.Ignore(playerCube);
-                playerCube.MoveTo(Pressed.World.Translation + new Vector3(0, Content.CubeSizeWithOffset, 0), 0.1f);
+                playerCube.MoveTo(Pressed.World.Translation + new Vector3(0, Content.CubeSizeWithOffset, 0), 0.13f, false);
             }
 
             public PlayerMove(Cube pressed)

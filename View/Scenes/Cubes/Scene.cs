@@ -49,7 +49,7 @@ namespace Confinement.View.Scenes.Cubes
                         enemy.Cube.MoveTo(position + new Vector3(0,View.Content.CubeSizeWithOffset,0));
 
                         cubes.AddRange(new[] { enemy.Cube, underEnemy });
-                        toIgnore.AddRange(new[] { enemy.Cube, underEnemy });
+                        toIgnore.AddRange(new[] { underEnemy });
                         break;
                     case GameModel.GameModel.Field.FieldElement.Obstacle:
 
@@ -89,40 +89,25 @@ namespace Confinement.View.Scenes.Cubes
 
         private static void CreateUi(Scene scene)
         {
-            var pauseButton = new Content.PauseButton(
+            var pauseButton = new Content.InterfaceButton(
                 new Position(new Vector2(10, 10), PositionType.Percents),
                 View.Content.PauseButtonRegular,
                 View.Content.PauseButtonHover,
                 View.Content.PauseButtonClick,
                 100, 100,
                 0, new GameModel.GameModel.PauseGame());
+
+            var questionButton = new Content.InterfaceButton(
+                new Position(new Vector2(90, 10), PositionType.Percents),
+                View.Content.InstructionButtonRegular,
+                View.Content.InstructionButtonHover,
+                View.Content.InstructionButtonClick,
+                100, 100,
+                0, new GameModel.GameModel.ShowInstruction());
+
             scene.Add(pauseButton);
+            scene.Add(questionButton);
         }
 
-        public static Architecture.Scene GetScene(int fieldSize)
-        {
-            var cubesPositions = new List<Vector3>();
-            for (var x = -(fieldSize / 2); x <= fieldSize / 2; x++)
-            {
-                for (var y = -(fieldSize / 2); y <= fieldSize / 2; y++)
-                {
-                    cubesPositions.Add(
-                        new Vector3(View.Content.CubeSizeWithOffset * x, 0, View.Content.CubeSizeWithOffset * y));
-                }
-            }
-            var cubes = cubesPositions.Select(p => new Content.Cube(p, View.Content.RegularCube));
-            return new Scene(
-                Array.Empty<Button>(),
-                Array.Empty<Image>(),
-                Array.Empty<Text>(),
-                cubes,
-                Main.Graphics,
-                40,
-                Sprite.GeSolidColorTexture(Main.Graphics, Color.White,
-                    GameModel.GameModel.Screen.Width, GameModel.GameModel.Screen.Height)
-            );
-        }
-
-        public static Architecture.Scene GetScene() => GetScene(7);
     }
 }

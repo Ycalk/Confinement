@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Architecture;
 using Architecture.Entities;
@@ -123,21 +124,28 @@ namespace Confinement.GameModel
                     throw new ArgumentNullException(nameof(request));
                 if (request.Request is PlayerMove move)
                 {
-                    PlayerMove?.Invoke(move.Pressed.World.Translation);
+                    if (_playState == PlayState.PlayerMove)
+                    {
+                        request.Request.Execute();
+                        PlayerMove?.Invoke(move.Pressed.World.Translation);
+                    }
                     _playState = PlayState.ComputerMove;
                 }
-                request.Request.Execute();
+                else
+                    request.Request.Execute();
             }
 
 
             private void PlayerWin()
             {
-
+                _state = GameState.MainMenu;
+                LoadScene(View.Scenes.MainMenu.Scene.GetScene());
             }
 
             private void ComputerWin()
             {
-
+                LoadScene(View.Scenes.MainMenu.Scene.GetScene());
+                _state = GameState.MainMenu;
             }
 
             private void OnWindowResize(Screen oldScreen, Screen newScreen) =>

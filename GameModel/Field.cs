@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Architecture.Entities;
 using Architecture.Entities.System;
@@ -37,6 +38,8 @@ namespace Confinement.GameModel
                     IsAlive = true;
                 }
             }
+
+            private bool _isMoving;
 
             public enum FieldElement
             {
@@ -80,8 +83,19 @@ namespace Confinement.GameModel
 
             public void MoveEnemies()
             {
+                if (_isMoving)
+                    return;
+                _isMoving = true;
                 var cubes = _currentScene.GetEntities<Cube>().ToArray();
-                Parallel.ForEach(_enemies, enemy => MoveEnemy(enemy, cubes));
+                foreach (var enemy in _enemies)
+                    MoveEnemy(enemy, cubes);
+
+                if (_enemies.All(enemy => !enemy.IsAlive))
+                    _playState = PlayState.PlayerWin;
+
+                else if (_playState != PlayState.ComputerWin)
+                    _playState = PlayState.PlayerMove;
+                _isMoving = false;
             }
 
             private void OnPlayerMove(Vector3 newCube)
@@ -109,7 +123,8 @@ namespace Confinement.GameModel
                     or FieldElement.Enemy)
                     return;
 
-                _playState = _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] == FieldElement.Void ? PlayState.ComputerWin : PlayState.PlayerMove;
+                if (_fieldElements[enemyNewPosition.X, enemyNewPosition.Y] == FieldElement.Void)
+                    _playState = PlayState.ComputerWin;
 
                 _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] = FieldElement.Enemy;
                 _fieldElements[enemyStartPosition.X, enemyStartPosition.Y] = FieldElement.Empty;
@@ -123,7 +138,7 @@ namespace Confinement.GameModel
                 if (newUnderEnemy is not null)
                     _currentScene.Ignore(newUnderEnemy);
 
-                enemy.Cube.MoveTo(ConvertIntoWorldCoordinates(enemyNewPosition) + new Vector3(0,Content.CubeSizeWithOffset,0), 0.1f);
+                enemy.Cube.MoveTo(ConvertIntoWorldCoordinates(enemyNewPosition) + new Vector3(0,Content.CubeSizeWithOffset,0), 0.05f, true);
                 enemy.Position = enemyNewPosition;
             }
 
@@ -132,8 +147,8 @@ namespace Confinement.GameModel
 
             public Point ConvertIntoFieldCoordinates(Vector3 position) =>
                 new (
-                        (int)(position.X / View.Content.CubeSizeWithOffset + Size / 2),
-                        (int)(position.Z / View.Content.CubeSizeWithOffset + Size / 2)
+                        (int)((position.X + _currentScene.CameraDelta.X) / View.Content.CubeSizeWithOffset + Size / 2),
+                        (int)((position.Z + _currentScene.CameraDelta.Z) / View.Content.CubeSizeWithOffset + Size / 2)
                     );
                 
 
@@ -141,7 +156,8 @@ namespace Confinement.GameModel
                 ConvertIntoWorldCoordinates(point.X, point.Y);
 
             public Vector3 ConvertIntoWorldCoordinates(int x, int y) =>
-                new(View.Content.CubeSizeWithOffset * (x - Size / 2), 0, View.Content.CubeSizeWithOffset * (y - Size / 2));
+                new(View.Content.CubeSizeWithOffset * (x - Size / 2) - _currentScene.CameraDelta.X, 
+                    0, View.Content.CubeSizeWithOffset * (y - Size / 2) - _currentScene.CameraDelta.Z);
 
             private void MakeField()
             {
