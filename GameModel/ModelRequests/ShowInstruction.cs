@@ -21,7 +21,7 @@ namespace Confinement.GameModel
                 "Use arrows to scale or rotate the field.| |Good luck!";
 
 
-            public void Execute()
+            public void Execute(Entity sender)
             {
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Architecture.Entities.System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Confinement.GameModel
     {
         internal class ExitGame : IGamePlot
         {
-            public void Execute()
+            public void Execute(Entity sender)
             {
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");

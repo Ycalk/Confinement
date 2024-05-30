@@ -72,6 +72,15 @@ namespace Confinement.View
 
         #endregion
 
+        #region EmptyButton
+
+        public static Texture2D EmptyButtonRegular { get; private set; }
+        public static Texture2D EmptyButtonHover { get; private set; }
+        public static Texture2D EmptyButtonClick { get; private set; }
+
+
+        #endregion
+
         #region Cubes
         public static Model RoundedCube { get; private set; }
         public static Texture2D GreyTexture { get; private set; }
@@ -115,6 +124,10 @@ namespace Confinement.View
             CubeButtonRegular = contentManager.Load<Texture2D>("Buttons/CubeButtonRegular");
             CubeButtonHover = contentManager.Load<Texture2D>("Buttons/CubeButtonHover");
             CubeButtonClick = contentManager.Load<Texture2D>("Buttons/CubeButtonClick");
+
+            EmptyButtonRegular = contentManager.Load<Texture2D>("Buttons/RoundedButtonRegular");
+            EmptyButtonHover = contentManager.Load<Texture2D>("Buttons/RoundedButtonHover");
+            EmptyButtonClick = contentManager.Load<Texture2D>("Buttons/RoundedButtonClick");
 
             RoundedCube = contentManager.Load<Model>("RoundedCube/RoundedCube");
             GreyTexture = contentManager.Load<Texture2D>("RoundedCube/GreyTexture");

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System;
+using Architecture.Entities.System;
 using Microsoft.Xna.Framework;
 
 namespace Confinement.GameModel
@@ -10,7 +11,7 @@ namespace Confinement.GameModel
         {
             public readonly Field.Enemy Target;
 
-            public void Execute()
+            public void Execute(Entity sender)
             {
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");

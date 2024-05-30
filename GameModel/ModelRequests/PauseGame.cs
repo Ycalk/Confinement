@@ -16,14 +16,14 @@ namespace Confinement.GameModel
         {
             public const int PauseFormSize = 700;
             public const int ButtonSize = 100;
-            public void Execute()
+            public void Execute(Entity sender)
             {
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");
 
                 var entities = new List<Entity>();
 
-                var resumeButton = new View.Scenes.Cubes.Content.InterfaceButton(
+                var resumeButton = new InterfaceButton(
                     new Position(50, 30, PositionType.Percents),
                     View.Content.ButtonRegular,
                     View.Content.ButtonHover,
@@ -31,15 +31,15 @@ namespace Confinement.GameModel
                     300, 100, 0, new ResumeGame(),
                     "Resume");
 
-                var mainMenu = new View.Scenes.Cubes.Content.InterfaceButton(
+                var mainMenu = new InterfaceButton(
                     new Position(50, 50, PositionType.Percents),
                     View.Content.ButtonRegular,
                     View.Content.ButtonHover,
                     View.Content.ButtonClick,
                     300, 100, 0, new LoadMainMenu(),
-                    "Main Menu");
+                    "Main     menu");
 
-                var exit = new View.Scenes.Cubes.Content.InterfaceButton(
+                var exit = new InterfaceButton(
                     new Position(50, 70, PositionType.Percents),
                     View.Content.ButtonRegular,
                     View.Content.ButtonHover,
@@ -53,7 +53,10 @@ namespace Confinement.GameModel
                 _controller.PauseGame(entities);
             }
 
-            public static List<Entity> GetPauseForm()
+            public static List<Entity> GetPauseForm() =>
+                GetPauseForm(PauseFormSize);
+
+            public static List<Entity> GetPauseForm(int pauseFormSize)
             {
                 var result = new List<Entity>();
 
@@ -61,10 +64,10 @@ namespace Confinement.GameModel
                     new Sprite(Content.TranslucentBlack, Screen.Width, Screen.Height), 100);
 
                 var pauseForeground = new Image(new Position(50, 50, PositionType.Percents),
-                    new Sprite(Content.PauseTexture, PauseFormSize, PauseFormSize), 110);
+                    new Sprite(Content.PauseTexture, pauseFormSize, pauseFormSize), 110);
 
                 var closeButtonPosition = new Position(50, 50, PositionType.Percents)
-                    .GetCoordinate(Screen, PauseFormSize, PauseFormSize) + new Vector2(PauseFormSize - ButtonSize / 2, ButtonSize);
+                    .GetCoordinate(Screen, pauseFormSize, pauseFormSize) + new Vector2(pauseFormSize - ButtonSize / 2, ButtonSize);
 
                 var closeButton = new InterfaceButton(
                     new Position(closeButtonPosition.X, closeButtonPosition.Y, PositionType.Pixels),

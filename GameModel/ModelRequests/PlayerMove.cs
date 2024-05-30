@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using Architecture.Entities;
+using Architecture.Entities.System;
 using Confinement.View;
 using Microsoft.Xna.Framework;
 
@@ -12,7 +13,7 @@ namespace Confinement.GameModel
         internal class PlayerMove : IGamePlot
         {
             public Cube Pressed { get; }
-            public void Execute()
+            public void Execute(Entity sender)
             {
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");

@@ -15,7 +15,7 @@ namespace Confinement.View.Scenes.MainMenu.Content
         private Sprite Hover => new(View.Content.ButtonHover, Width, Height);
         private Sprite Press => new(View.Content.ButtonClick, Width, Height);
         private readonly Sprite _initSprite;
-        private readonly Position _initPosition;
+        public readonly Position InitPosition;
         private readonly int _offset = 20;
         private readonly IGamePlot _onRelease;
 
@@ -23,7 +23,7 @@ namespace Confinement.View.Scenes.MainMenu.Content
             : base(position, drawOrder, sprite, View.Content.Regular, Color.Black, text)
         {
             _initSprite = sprite;
-            _initPosition = position;
+            InitPosition = position;
             HoveringTextColor = Color.Black;
             PressingTextColor = Color.White;
             _onRelease = onRelease;
@@ -56,7 +56,7 @@ namespace Confinement.View.Scenes.MainMenu.Content
             base.OnRelease();
             Width -= _offset;
             Height -= _offset;
-            Position = _initPosition;
+            Position = InitPosition;
             Sprite = _initSprite;
         }
     }

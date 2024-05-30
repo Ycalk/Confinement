@@ -130,12 +130,12 @@ namespace Confinement.GameModel
                 {
                     if (_playState != PlayState.PlayerMove || _currentScene.ChangingTarget) return;
 
-                    request.Request.Execute();
+                    request.Request.Execute(request.Sender);
                     PlayerMove?.Invoke(move.Pressed.Position);
                     _playState = PlayState.ComputerMove;
                 }
                 else
-                    request.Request.Execute();
+                    request.Request.Execute(request.Sender);
             }
 
 

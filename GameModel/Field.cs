@@ -24,6 +24,8 @@ namespace Confinement.GameModel
     {
         internal class Field
         {
+            public const int MaximalEnemyCount = 5;
+
             public class Enemy
             {
                 public Point Position { get; set; }
@@ -71,7 +73,7 @@ namespace Confinement.GameModel
                 {
                     case 0:
                         throw new ArgumentException("At least one enemy must be provided");
-                    case > 5:
+                    case > MaximalEnemyCount:
                         throw new ArgumentException("Too many enemies");
                 }
 
