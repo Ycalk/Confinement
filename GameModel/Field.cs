@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -166,8 +167,8 @@ namespace Confinement.GameModel
 
             public Point ConvertIntoFieldCoordinates(Vector3 position) =>
                 new (
-                        (int)((position.X + _currentScene.CameraDelta.X) / Content.CubeSizeWithOffset + Size / 2),
-                        (int)((position.Z + _currentScene.CameraDelta.Z) / Content.CubeSizeWithOffset + Size / 2)
+                        (int)Math.Round((position.X + _currentScene.CameraDelta.X) / Content.CubeSizeWithOffset + Size / 2),
+                        (int)Math.Round((position.Z + _currentScene.CameraDelta.Z) / Content.CubeSizeWithOffset + Size / 2)
                     );
 
             public Vector3 ConvertIntoWorldCoordinates(Point point) =>

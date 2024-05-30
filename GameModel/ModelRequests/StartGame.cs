@@ -18,7 +18,7 @@ namespace Confinement.GameModel
 
                 if (_state == GameState.MainMenu)
                 {
-                    var fieldSize = 45;
+                    var fieldSize = 35;
                     _state = GameState.Playing;
                     _field = new Field(fieldSize, 
                         new MazeScaling(2, .25),

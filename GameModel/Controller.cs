@@ -98,9 +98,6 @@ namespace Confinement.GameModel
 
                 switch (_playState)
                 {
-                    case PlayState.ComputerMove:
-                        Task.Run(() => _field.MoveEnemies());
-                        break;
                     case PlayState.ComputerWin:
                         ComputerWin();
                         break;
@@ -108,10 +105,15 @@ namespace Confinement.GameModel
                         PlayerWin();
                         break;
 
-                    case PlayState.Pause:
+                    case PlayState.ComputerMove:
+                        Task.Run(()=>_field.MoveEnemies());
+                        break;
+
                     case PlayState.PlayerMove:
+                    case PlayState.Pause:
                         break;
                 }
+
             }
 
             public void LoadScene(Scene scene)
@@ -126,11 +128,10 @@ namespace Confinement.GameModel
                     throw new ArgumentNullException(nameof(request));
                 if (request.Request is PlayerMove move)
                 {
-                    if (_playState == PlayState.PlayerMove)
-                    {
-                        request.Request.Execute();
-                        PlayerMove?.Invoke(move.Pressed.Position);
-                    }
+                    if (_playState != PlayState.PlayerMove || _currentScene.ChangingTarget) return;
+
+                    request.Request.Execute();
+                    PlayerMove?.Invoke(move.Pressed.Position);
                     _playState = PlayState.ComputerMove;
                 }
                 else
