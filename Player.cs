@@ -13,6 +13,7 @@ namespace Confinement
         public event Action<Vector2> MouseButtonPress;
         public event Action<Vector2> MouseButtonRelease;
         public event Action LeftArrowPressing;
+        public event Action EscapePress;
         public event Action RightArrowPressing;
         public event Action UpArrowPressing;
         public event Action DownArrowPressing;
@@ -20,6 +21,7 @@ namespace Confinement
         public event Action<Screen, Screen> WindowResize;
 
         private MouseState _mouseState;
+        private KeyboardState _keyboardState;
         private Screen _screen;
         public void ProcessControls(int windowWidth, int windowHeight)
         {
@@ -44,9 +46,13 @@ namespace Confinement
                 OnWindowResize(_screen, screen);
 
             var keyboard = Keyboard.GetState();
+            var previousKeyboard = _keyboardState;
 
             if (keyboard.IsKeyDown(Keys.Left) || keyboard.IsKeyDown(Keys.A))
                 LeftArrowPressing?.Invoke();
+
+            if (keyboard.IsKeyDown(Keys.Escape) && !previousKeyboard.IsKeyDown(Keys.Escape))
+                EscapePress?.Invoke();
 
             if (keyboard.IsKeyDown(Keys.Right) || keyboard.IsKeyDown(Keys.D))
                 RightArrowPressing?.Invoke();
@@ -59,6 +65,7 @@ namespace Confinement
             
             _screen = screen;
             _mouseState = currentState;
+            _keyboardState = keyboard;
         }
 
         private void OnWindowResize(Screen oldScreen, Screen newScreen) =>

@@ -22,6 +22,7 @@ namespace Confinement.View
 
         public static SpriteFont Regular { get; private set; }
         public static SpriteFont GameName { get; private set; }
+        public static SpriteFont GameOver { get; private set; }
 
         #endregion
 
@@ -81,6 +82,30 @@ namespace Confinement.View
 
         #endregion
 
+        #region MainMenuButoon
+
+        public static Texture2D MainMenuButtonRegular { get; private set; }
+        public static Texture2D MainMenuButtonHover { get; private set; }
+        public static Texture2D MainMenuButtonClick { get; private set; }
+
+        #endregion
+
+        #region RefreshButton
+
+        public static Texture2D RefreshButtonRegular { get; private set; }
+        public static Texture2D RefreshButtonHover { get; private set; }
+        public static Texture2D RefreshButtonClick { get; private set; }
+
+        #endregion
+
+        #region NextButton
+
+        public static Texture2D NextButtonRegular { get; private set; }
+        public static Texture2D NextButtonHover { get; private set; }
+        public static Texture2D NextButtonClick { get; private set; }
+
+        #endregion
+
         #region Cubes
         public static Model RoundedCube { get; private set; }
         public static Texture2D GreyTexture { get; private set; }
@@ -100,6 +125,7 @@ namespace Confinement.View
 
             Regular = contentManager.Load<SpriteFont>("Fonts/Regular");
             GameName = contentManager.Load<SpriteFont>("Fonts/GameName");
+            GameOver = contentManager.Load<SpriteFont>("Fonts/GameOver");
 
             TranslucentBlack = contentManager.Load<Texture2D>("Buttons/TranslucentBlack");
             MainMenuImage = contentManager.Load<Texture2D>("MainMenuImage");
@@ -128,6 +154,18 @@ namespace Confinement.View
             EmptyButtonRegular = contentManager.Load<Texture2D>("Buttons/RoundedButtonRegular");
             EmptyButtonHover = contentManager.Load<Texture2D>("Buttons/RoundedButtonHover");
             EmptyButtonClick = contentManager.Load<Texture2D>("Buttons/RoundedButtonClick");
+
+            MainMenuButtonRegular = contentManager.Load<Texture2D>("Buttons/HomeButtonRegular");
+            MainMenuButtonHover = contentManager.Load<Texture2D>("Buttons/HomeButtonHover");
+            MainMenuButtonClick = contentManager.Load<Texture2D>("Buttons/HomeButtonClick");
+
+            RefreshButtonRegular = contentManager.Load<Texture2D>("Buttons/RefreshButtonRegular");
+            RefreshButtonHover = contentManager.Load<Texture2D>("Buttons/RefreshButtonHover");
+            RefreshButtonClick = contentManager.Load<Texture2D>("Buttons/RefreshButtonClick");
+
+            NextButtonRegular = contentManager.Load<Texture2D>("Buttons/NextButtonRegular");
+            NextButtonHover = contentManager.Load<Texture2D>("Buttons/NextButtonHover");
+            NextButtonClick = contentManager.Load<Texture2D>("Buttons/NextButtonClick");
 
             RoundedCube = contentManager.Load<Model>("RoundedCube/RoundedCube");
             GreyTexture = contentManager.Load<Texture2D>("RoundedCube/GreyTexture");

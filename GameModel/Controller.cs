@@ -39,6 +39,7 @@ namespace Confinement.GameModel
                 player.RightArrowPressing += OnRightArrowPress;
                 player.UpArrowPressing += OnUpArrowPress;
                 player.DownArrowPressing += OnDownArrowPress;
+                player.EscapePress += OnEscapePress;
 
                 Screen = screen;
                 _requests = new Queue<ModelRequest>();
@@ -109,6 +110,10 @@ namespace Confinement.GameModel
                         Task.Run(()=>_field.MoveEnemies());
                         break;
 
+                    case PlayState.GameOver:
+                        _currentScene.RotateCamera(MathHelper.ToRadians(.5f));
+                        break;
+
                     case PlayState.PlayerMove:
                     case PlayState.Pause:
                         break;
@@ -141,14 +146,14 @@ namespace Confinement.GameModel
 
             private void PlayerWin()
             {
-                _state = GameState.MainMenu;
-                LoadScene(View.Scenes.MainMenu.Scene.GetScene());
+                _playState = PlayState.GameOver;
+                _gameMode.OnPlayerWin();
             }
 
             private void ComputerWin()
             {
-                LoadScene(View.Scenes.MainMenu.Scene.GetScene());
-                _state = GameState.MainMenu;
+                _playState = PlayState.GameOver;
+                _gameMode.OnPlayerLose();
             }
 
             private void OnWindowResize(Screen oldScreen, Screen newScreen) =>
@@ -163,27 +168,38 @@ namespace Confinement.GameModel
             private void OnMouseMove(Vector2 oldPosition, Vector2 newPosition) =>
                 Screen = new Screen(Screen.Width, Screen.Height, newPosition);
 
+            private void OnEscapePress()
+            {
+                if (_state == GameState.MainMenu)
+                    return;
+
+                if (_playState == PlayState.Pause)
+                    UnPauseGame();
+                else if (_playState == PlayState.PlayerMove)
+                    CreateRequest(new ModelRequest(new PauseGame(), null));
+            }
+
             private void OnLeftArrowPress()
             {
-                if (_playState != PlayState.Pause)
+                if (_playState != PlayState.Pause && _playState != PlayState.GameOver)
                     _currentScene.LeftArrowPress();
             }
 
             private void OnRightArrowPress()
             {
-                if (_playState != PlayState.Pause)
+                if (_playState != PlayState.Pause && _playState != PlayState.GameOver)
                     _currentScene.RightArrowPress();
             }
 
             private void OnUpArrowPress()
             {
-                if (_playState != PlayState.Pause)
+                if (_playState != PlayState.Pause && _playState != PlayState.GameOver)
                     _currentScene.UpArrowPress();
             }
 
             private void OnDownArrowPress()
             {
-                if (_playState != PlayState.Pause)
+                if (_playState != PlayState.Pause && _playState != PlayState.GameOver)
                     _currentScene.DownArrowPress();
             }
                 

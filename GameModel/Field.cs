@@ -89,11 +89,16 @@ namespace Confinement.GameModel
 
             public void MoveEnemies()
             {
-                if (_isMoving)
+                if (_isMoving || _playState == PlayState.ComputerWin || _playState == PlayState.PlayerWin)
                     return;
                 _isMoving = true;
                 foreach (var enemy in _enemies)
+                {
                     MoveEnemy(enemy, _currentScene.GetEntities<Cube>().ToArray());
+                    if (_playState == PlayState.ComputerWin)
+                        return;
+                }
+                   
 
                 if (_enemies.All(enemy => !enemy.IsAlive))
                     _playState = PlayState.PlayerWin;
@@ -106,6 +111,14 @@ namespace Confinement.GameModel
             private void OnPlayerMove(Vector3 newCube)
             {
                 var convertedPosition = ConvertIntoFieldCoordinates(newCube);
+                if (convertedPosition.X < 0)
+                    convertedPosition.X = 0;
+                if (convertedPosition.Y < 0)
+                    convertedPosition.Y = 0;
+                if (convertedPosition.X >= Size)
+                    convertedPosition.X = Size - 1;
+                if (convertedPosition.Y >= Size)
+                    convertedPosition.Y = Size - 1;
                 _fieldElements[convertedPosition.X, convertedPosition.Y] = FieldElement.Obstacle;
             }
 
@@ -130,7 +143,18 @@ namespace Confinement.GameModel
                     return;
 
                 if (_fieldElements[enemyNewPosition.X, enemyNewPosition.Y] == FieldElement.Void)
+                {
+                    Thread.Sleep(200);
+                    _currentScene.ChangeCameraTarget(ConvertIntoWorldCoordinates(enemyNewPosition));
+                    while(_currentScene.ChangingTarget)
+                        Thread.Sleep(10);
+                    enemy.Cube.MoveTo(enemy.Cube.Position + new Vector3(0, 200, 0), 0.1f, true);
+                    enemy.Cube.Disappear(1f);
+                    Thread.Sleep(1000);
                     _playState = PlayState.ComputerWin;
+                    return;
+                }
+                    
 
                 _fieldElements[enemyNewPosition.X, enemyNewPosition.Y] = FieldElement.Enemy;
                 _fieldElements[enemyStartPosition.X, enemyStartPosition.Y] = FieldElement.Empty;
@@ -169,8 +193,8 @@ namespace Confinement.GameModel
 
             public Point ConvertIntoFieldCoordinates(Vector3 position) =>
                 new (
-                        (int)Math.Round((position.X + _currentScene.CameraDelta.X) / Content.CubeSizeWithOffset + Size / 2),
-                        (int)Math.Round((position.Z + _currentScene.CameraDelta.Z) / Content.CubeSizeWithOffset + Size / 2)
+                        (int)Math.Round(Math.Round(position.X + _currentScene.CameraDelta.X, 1) / Content.CubeSizeWithOffset + Size / 2),
+                        (int)Math.Round(Math.Round(position.Z + _currentScene.CameraDelta.Z, 1) / Content.CubeSizeWithOffset + Size / 2)
                     );
 
             public Vector3 ConvertIntoWorldCoordinates(Point point) =>

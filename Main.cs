@@ -58,8 +58,6 @@ namespace Confinement
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
             _player.ProcessControls(Window.ClientBounds.Width, Window.ClientBounds.Height);
             _controller.Manage(gameTime);
         }

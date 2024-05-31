@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Architecture.Entities;
 using Architecture.Entities.System;
+using Confinement.GameModel.GameModes;
 using Confinement.View;
 using Confinement.View.Scenes.MainMenu.Content;
 using Microsoft.Xna.Framework;
@@ -56,7 +57,7 @@ namespace Confinement.GameModel
                           View.Content.EmptyButtonRegular,
                           View.Content.EmptyButtonHover,
                           View.Content.EmptyButtonClick,
-                          100, 100, 0, new StartGame(i, i * 10 + 1),
+                          100, 100, 0, new StartGame(i, new LevelSelect(i)),
                           i.ToString());
                     result.Add(button);
                     currentX += 100 + 10;

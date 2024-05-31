@@ -1,6 +1,7 @@
 ﻿
 
 using Architecture;
+using Confinement.GameModel.GameModes;
 
 namespace Confinement.GameModel
 {
@@ -13,6 +14,7 @@ namespace Confinement.GameModel
             Pause,
             PlayerWin,
             ComputerWin,
+            GameOver
         }
 
         public enum GameState
@@ -28,6 +30,7 @@ namespace Confinement.GameModel
         private static Scene _currentScene;
         private static Controller _controller;
         private static Field _field;
+        private static IGameMode _gameMode;
 
         static GameModel()
         {
