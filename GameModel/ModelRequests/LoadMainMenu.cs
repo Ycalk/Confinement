@@ -13,7 +13,7 @@ namespace Confinement.GameModel
             {
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");
-                _controller.LoadScene(View.Scenes.MainMenu.Scene.GetScene());
+                _controller.StartModel();
                 _state = GameState.MainMenu;
             }
         }

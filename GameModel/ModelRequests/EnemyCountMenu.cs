@@ -44,7 +44,7 @@ namespace Confinement.GameModel
                 var blockLength = Field.MaximalEnemyCount * 100 + (Field.MaximalEnemyCount - 1) * 10;
                 
                 var startPosition =
-                    new Position(50, 50, PositionType.Percents).GetCoordinate(Screen, blockLength,
+                    new Position(10, 50, PositionType.Percents).GetCoordinate(Screen, blockLength,
                         100);
                 var positionY = senderPosition.Y;
 

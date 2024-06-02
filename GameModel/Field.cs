@@ -24,7 +24,7 @@ namespace Confinement.GameModel
     {
         internal class Field
         {
-            public const int MaximalEnemyCount = 5;
+            public const int MaximalEnemyCount = 6;
 
             public class Enemy
             {
@@ -145,7 +145,7 @@ namespace Confinement.GameModel
                 if (_fieldElements[enemyNewPosition.X, enemyNewPosition.Y] == FieldElement.Void)
                 {
                     Thread.Sleep(200);
-                    _currentScene.ChangeCameraTarget(ConvertIntoWorldCoordinates(enemyNewPosition));
+                    _currentScene.ChangeCameraTarget(ConvertIntoWorldCoordinates(enemyNewPosition), 0.03f);
                     while(_currentScene.ChangingTarget)
                         Thread.Sleep(10);
                     enemy.Cube.MoveTo(enemy.Cube.Position + new Vector3(0, 200, 0), 0.1f, true);
@@ -276,6 +276,15 @@ namespace Confinement.GameModel
                         CreateEnemy(halfOfSize + 1, halfOfSize - 1, enemies[3]);
                         CreateEnemy(halfOfSize, halfOfSize, enemies[4]);
                         break;
+                    case 6:
+                        CreateEnemy(halfOfSize - 1, halfOfSize - 1, enemies[0]);
+                        CreateEnemy(halfOfSize + 1, halfOfSize + 1, enemies[1]);
+                        CreateEnemy(halfOfSize - 1, halfOfSize + 1, enemies[2]);
+                        CreateEnemy(halfOfSize + 1, halfOfSize - 1, enemies[3]);
+                        CreateEnemy(halfOfSize, halfOfSize - 1, enemies[4]);
+                        CreateEnemy(halfOfSize, halfOfSize + 1, enemies[5]);
+                        break;
+
                     default:
                         throw new ArgumentException("Unexpected enemies count: " + enemies.Count);
                 }

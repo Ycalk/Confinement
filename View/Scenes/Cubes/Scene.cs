@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -29,7 +30,7 @@ namespace Confinement.View.Scenes.Cubes
         {
         }
 
-        public static Architecture.Scene GetScene(GameModel.GameModel.Field field, float distance)
+        public static Architecture.Scene GetScene(GameModel.GameModel.Field field, float distance, bool withUi = true)
         {
             var toIgnore = new List<Cube>();
             var enemies = field.Enemies;
@@ -84,15 +85,15 @@ namespace Confinement.View.Scenes.Cubes
                 Sprite.GeSolidColorTexture(Main.Graphics, Color.White,
                     GameModel.GameModel.Screen.Width, GameModel.GameModel.Screen.Height)
             );
-            CreateUi(result);
-            foreach (var button in GetEnemiesButtons(enemies))
-                result.Add(button);
+            if (withUi)
+                CreateUi(result, enemies);
+            
             foreach (var ignoring in toIgnore)
                 result.Ignore(ignoring);
             return result;
         }
 
-        private static void CreateUi(Scene scene)
+        private static void CreateUi(Scene scene, ReadOnlyCollection<GameModel.GameModel.Field.Enemy> enemies)
         {
             var pauseButton = new Content.InterfaceButton(
                 new Position(new Vector2(10, 10), PositionType.Percents),
@@ -109,6 +110,9 @@ namespace Confinement.View.Scenes.Cubes
                 View.Content.InstructionButtonClick,
                 ButtonsSize, ButtonsSize,
                 0, new GameModel.GameModel.ShowInstruction());
+
+            foreach (var button in GetEnemiesButtons(enemies))
+                scene.Add(button);
 
             scene.Add(pauseButton);
             scene.Add(questionButton);

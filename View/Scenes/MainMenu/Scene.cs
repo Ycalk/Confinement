@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 using Architecture;
 using Architecture.Entities;
 using Architecture.Entities.System;
+using Confinement.GameModel;
+using Confinement.GameModel.PositionsGenerator;
+using Confinement.View.Scenes.Cubes.Content;
 using Confinement.View.Scenes.MainMenu.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Cube = Architecture.Entities.Cube;
 
 namespace Confinement.View.Scenes.MainMenu
 {
@@ -25,34 +29,54 @@ namespace Confinement.View.Scenes.MainMenu
         {
         }
 
-        public static Architecture.Scene GetScene()
+        public static Architecture.Scene GetScene(GameModel.GameModel.Field field)
         {
+            var scene = Cubes.Scene.GetScene(field, 50, false);
+            scene.Update(new GameTime(), GameModel.GameModel.Screen);
+            var cubes = scene.GetEntities<Cube>().ToArray();
+            foreach (var cube in cubes)
+                scene.Ignore(cube);
+
+            scene.ChangeCameraTarget(new Vector3(5, 0, 8), 0f);
+
+            foreach (var entity in GetMainMenu())
+                scene.Add(entity);
+            return scene;
+        }
+
+        private static List<Entity> GetMainMenu()
+        {
+            var gameImage = new Image(new Position(5, 10, PositionType.Percents),
+                new Sprite(View.Content.MainMenuImage, 500, 500), 1);
+
+            var startButton = new MainMenuButton(
+                new Position(10, 50, PositionType.Percents), 1,
+                new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new GameModel.GameModel.StartGame(3, 35),
+                "Start");
+
             var selectLevel = new MainMenuButton(
-                new Position(50, 75, PositionType.Percents), 1,
+                new Position(10, 65, PositionType.Percents), 1,
                 new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new GameModel.GameModel.EnemyCountMenu(),
                 "Select     level");
 
 
-            var startButton = new MainMenuButton(
-                new Position(50, 60, PositionType.Percents), 1,
-                new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new GameModel.GameModel.StartGame(3, 35),
-                "Start");
-
             var exitButton = new MainMenuButton(
-                new Position(50, 90, PositionType.Percents), 1,
+                new Position(10, 80, PositionType.Percents), 1,
                 new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new GameModel.GameModel.ExitGame(),
                 "Exit");
 
-            var gameImage = new Image(new Position(50, 20, PositionType.Percents),
-                new Sprite(View.Content.MainMenuImage, 500, 500), 1);
+            
 
-            return new Scene(new[] { startButton, exitButton, selectLevel },
-                new[] { gameImage },
-                Array.Empty<Text>(),
-                Array.Empty<Cube>(),
-                Main.Graphics,
-                Sprite.GeSolidColorTexture(Main.Graphics, Color.White,
-                    GameModel.GameModel.Screen.Width, GameModel.GameModel.Screen.Height));
+            return new List<Entity>() { selectLevel, startButton, exitButton, gameImage };
+        }
+
+        public static Architecture.Scene GetScene()
+        {
+            var result = Empty(Main.Graphics);
+
+            foreach (var entity in GetMainMenu())
+                result.Add(entity);
+            return result;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Confinement.GameModel
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");
                 var target = new Vector3(Target.WorldPosition.X, 0, Target.WorldPosition.Z);
-                _currentScene.ChangeCameraTarget(target);
+                _currentScene.ChangeCameraTarget(target, 0.03f);
             }
 
             public ChangeCameraTarget(Field.Enemy enemy)

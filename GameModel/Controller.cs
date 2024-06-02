@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Threading;
 using System.Threading.Tasks;
 using Architecture;
 using Architecture.Entities;
 using Architecture.Entities.System;
+using Confinement.GameModel.PositionsGenerator;
 using Confinement.View;
+using Confinement.View.Scenes.Cubes.Content;
 using Microsoft.Xna.Framework;
+using Cube = Architecture.Entities.Cube;
 
 
 namespace Confinement.GameModel
@@ -23,6 +27,8 @@ namespace Confinement.GameModel
 
             private static Queue<ModelRequest> _requests;
             private readonly Action _exit;
+
+            
 
             private IEnumerable<IInteractive> _ignoringBeforePause;
             private List<Entity> _pause;
@@ -51,7 +57,34 @@ namespace Confinement.GameModel
 
             public void StartModel()
             {
-                _currentScene = View.Scenes.MainMenu.Scene.GetScene();
+                _currentScene = Scene.Empty(Main.Graphics);
+                _field = new Field(25,
+                    new MazeScaling(2, .35),
+                    new NormalDistribution(Field.FieldElement.DoubleMove, 30),
+                    (new SmartEnemy(), new EnemyCube()));
+                _currentScene = View.Scenes.MainMenu.Scene.GetScene(_field);
+                Task.Run(() =>
+                {
+                    var startField = _field;
+                    Thread.Sleep(7000);
+                    var counter = 0;
+                    while (startField == _field)
+                    {
+                        _field.MoveEnemies();
+                        Thread.Sleep(100);
+                        var cubes = _currentScene.GetEntities<Cube>().ToArray();
+                        foreach (var cube in cubes)
+                            _currentScene.Ignore(cube);
+                        Thread.Sleep(15000);
+                        if (_playState == PlayState.ComputerWin || counter == 3)
+                        {
+                            _playState = PlayState.PlayerMove;
+                            break;
+                        }
+
+                        counter++;
+                    }
+                });
                 SceneChange?.Invoke(_currentScene);
             }
 
@@ -92,7 +125,12 @@ namespace Confinement.GameModel
                 if (_requests.Count > 0)
                     _requests.Clear();
 
-                if (_state != GameState.Playing) return;
+                if (_state == GameState.MainMenu)
+                {
+
+                    _currentScene.RotateCamera(MathHelper.ToRadians(0.01f));
+                    return;
+                }
 
                 if (_field is null)
                     throw new InvalidOperationException("Field is not initialized");

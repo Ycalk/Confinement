@@ -85,17 +85,24 @@ namespace Confinement.GameModel
                         break;
                     case 4:
                         _enemyCount = 4;
-                        _fieldSize = 31;
+                        _fieldSize = 35;
                         _scalingCoefficient = 2;
                         _scalingChance = .18;
                         _doubleMovePointsCount = 90;
                         break;
                     case 5:
                         _enemyCount = 5;
-                        _fieldSize = 31;
+                        _fieldSize = 45;
                         _scalingCoefficient = 2;
-                        _scalingChance = .20;
-                        _doubleMovePointsCount = 150;
+                        _scalingChance = .17;
+                        _doubleMovePointsCount = 200;
+                        break;
+                    case 6:
+                        _enemyCount = 6;
+                        _fieldSize = 57;
+                        _scalingCoefficient = 2;
+                        _scalingChance = .17;
+                        _doubleMovePointsCount = 300;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(level));
