@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace Confinement.GameModel.PlayerProgress
@@ -6,8 +7,7 @@ namespace Confinement.GameModel.PlayerProgress
     public static class SaveLoadManager
     {
         private static readonly string FilePath = 
-            Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), 
-                "playerProgress.json");
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playerProgress.json");
 
         public static void SaveProgress(PlayerProgress progress)
         {
