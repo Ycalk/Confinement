@@ -8,6 +8,7 @@ using Confinement.GameModel.GameModes;
 using Confinement.View;
 using Confinement.View.Scenes.MainMenu.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Confinement.GameModel
 {
@@ -52,11 +53,12 @@ namespace Confinement.GameModel
 
                 for (var i = 1; i < Field.MaximalEnemyCount + 1; i++)
                 {
+                    var completed = CompletedLevels.Contains(i);
                     var button = new View.Scenes.Cubes.Content.InterfaceButton(
                            new Position(currentX, positionY, PositionType.Pixels),
-                          View.Content.EmptyButtonRegular,
-                          View.Content.EmptyButtonHover,
-                          View.Content.EmptyButtonClick,
+                           completed ? Content.EmptyGreenButtonRegular : Content.EmptyButtonRegular,
+                          completed ? Content.EmptyGreenButtonHover : Content.EmptyButtonHover,
+                          completed ? Content.EmptyGreenButtonClick : Content.EmptyButtonClick,
                           100, 100, 0, new StartGame(i, new LevelSelect(i)),
                           i.ToString());
                     result.Add(button);

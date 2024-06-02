@@ -66,8 +66,7 @@ namespace Confinement.GameModel
                 Task.Run(() =>
                 {
                     var startField = _field;
-                    Thread.Sleep(7000);
-                    var counter = 0;
+                    Thread.Sleep(5000);
                     while (startField == _field)
                     {
                         _field.MoveEnemies();
@@ -75,14 +74,12 @@ namespace Confinement.GameModel
                         var cubes = _currentScene.GetEntities<Cube>().ToArray();
                         foreach (var cube in cubes)
                             _currentScene.Ignore(cube);
-                        Thread.Sleep(15000);
-                        if (_playState == PlayState.ComputerWin || counter == 3)
+                        Thread.Sleep(10000);
+                        if (_playState == PlayState.ComputerWin)
                         {
                             _playState = PlayState.PlayerMove;
                             break;
                         }
-
-                        counter++;
                     }
                 });
                 SceneChange?.Invoke(_currentScene);
@@ -184,6 +181,8 @@ namespace Confinement.GameModel
 
             private void PlayerWin()
             {
+                var currentLevel = _gameMode.CurrentLevel;
+                AddCompletedLevel(currentLevel);
                 _playState = PlayState.GameOver;
                 _gameMode.OnPlayerWin();
             }

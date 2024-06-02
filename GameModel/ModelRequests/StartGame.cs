@@ -21,7 +21,7 @@ namespace Confinement.GameModel
             private readonly int _doubleMovePointsCount;
             private readonly Action<Entity> _additionalAction;
             private readonly IGameMode _selectedGameMode;
-
+            private readonly int _level;
 
             public void Execute(Entity sender)
             {
@@ -35,7 +35,7 @@ namespace Confinement.GameModel
                 for (var i = 0; i < _enemyCount; i++)
                     enemies[i] = (new SmartEnemy(), new EnemyCube());
 
-                _currentScene.Clear();
+                _currentScene.Reset();
 
                 if (_selectedGameMode is not null)
                     _gameMode = _selectedGameMode;
@@ -45,12 +45,13 @@ namespace Confinement.GameModel
                     new NormalDistribution(Field.FieldElement.DoubleMove, _doubleMovePointsCount),
                     enemies);
                 _playState = PlayState.PlayerMove;
-                _controller.LoadScene(View.Scenes.Cubes.Scene.GetScene(_field, 70));
+                _controller.LoadScene(View.Scenes.Cubes.Scene.GetScene(_field, 70, _level));
                 
             }
 
             public StartGame(int level, IGameMode gameMode = null, Action<Entity> additionalAction = null)
             {
+                _level = level;
                 if (additionalAction is not null) 
                     _additionalAction = additionalAction;
 
@@ -107,20 +108,6 @@ namespace Confinement.GameModel
                     default:
                         throw new ArgumentOutOfRangeException(nameof(level));
                 }
-            }
-
-            public StartGame(int enemyCount, int fieldSize) :
-                this(enemyCount, fieldSize, 2, .25, fieldSize * 3)
-            {
-            }
-
-            public StartGame(int enemyCount, int fieldSize, int scalingCoefficient, double scalingChance, int doubleMovePointsCount)
-            {
-                _enemyCount = enemyCount;
-                _fieldSize = fieldSize;
-                _scalingCoefficient = scalingCoefficient;
-                _scalingChance = scalingChance;
-                _doubleMovePointsCount = doubleMovePointsCount;
             }
         }
     }

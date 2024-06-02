@@ -1,12 +1,24 @@
 ﻿
 
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Architecture;
 using Confinement.GameModel.GameModes;
+using Confinement.GameModel.PlayerProgress;
 
 namespace Confinement.GameModel
 {
     internal static partial class GameModel
     {
+        private static readonly PlayerProgress.PlayerProgress PlayerProgress;
+        public static ReadOnlyCollection<int> CompletedLevels => PlayerProgress.CompletedLevels.AsReadOnly();
+
+        public static void AddCompletedLevel(int level)
+        {
+            PlayerProgress.CompletedLevels.Add(level);
+            SaveLoadManager.SaveProgress(PlayerProgress);
+        }
+
         private enum PlayState
         {
             PlayerMove,
@@ -35,6 +47,7 @@ namespace Confinement.GameModel
         static GameModel()
         {
             _state = GameState.MainMenu;
+            PlayerProgress = SaveLoadManager.LoadProgress();
         }
     }
 }

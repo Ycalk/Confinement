@@ -82,6 +82,15 @@ namespace Confinement.View
 
         #endregion
 
+        #region EmptyGreenButton
+
+        public static Texture2D EmptyGreenButtonRegular { get; private set; }
+        public static Texture2D EmptyGreenButtonHover { get; private set; }
+        public static Texture2D EmptyGreenButtonClick { get; private set; }
+
+
+        #endregion
+
         #region MainMenuButoon
 
         public static Texture2D MainMenuButtonRegular { get; private set; }
@@ -154,6 +163,10 @@ namespace Confinement.View
             EmptyButtonRegular = contentManager.Load<Texture2D>("Buttons/RoundedButtonRegular");
             EmptyButtonHover = contentManager.Load<Texture2D>("Buttons/RoundedButtonHover");
             EmptyButtonClick = contentManager.Load<Texture2D>("Buttons/RoundedButtonClick");
+
+            EmptyGreenButtonRegular = contentManager.Load<Texture2D>("Buttons/RoundedButtonGreenRegular");
+            EmptyGreenButtonHover = contentManager.Load<Texture2D>("Buttons/RoundedButtonGreenHover");
+            EmptyGreenButtonClick = contentManager.Load<Texture2D>("Buttons/RoundedButtonGreenClick");
 
             MainMenuButtonRegular = contentManager.Load<Texture2D>("Buttons/HomeButtonRegular");
             MainMenuButtonHover = contentManager.Load<Texture2D>("Buttons/HomeButtonHover");

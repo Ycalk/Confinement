@@ -7,11 +7,13 @@ using Architecture;
 using Architecture.Entities;
 using Architecture.Entities.System;
 using Confinement.GameModel;
+using Confinement.GameModel.GameModes;
 using Confinement.GameModel.PositionsGenerator;
 using Confinement.View.Scenes.Cubes.Content;
 using Confinement.View.Scenes.MainMenu.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static Confinement.GameModel.GameModel;
 using Cube = Architecture.Entities.Cube;
 
 namespace Confinement.View.Scenes.MainMenu
@@ -31,7 +33,7 @@ namespace Confinement.View.Scenes.MainMenu
 
         public static Architecture.Scene GetScene(GameModel.GameModel.Field field)
         {
-            var scene = Cubes.Scene.GetScene(field, 50, false);
+            var scene = Cubes.Scene.GetScene(field, 50, 0,false);
             scene.Update(new GameTime(), GameModel.GameModel.Screen);
             var cubes = scene.GetEntities<Cube>().ToArray();
             foreach (var cube in cubes)
@@ -51,7 +53,7 @@ namespace Confinement.View.Scenes.MainMenu
 
             var startButton = new MainMenuButton(
                 new Position(10, 50, PositionType.Percents), 1,
-                new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new GameModel.GameModel.StartGame(3, 35),
+                new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new StartGame(1, new Classic()),
                 "Start");
 
             var selectLevel = new MainMenuButton(

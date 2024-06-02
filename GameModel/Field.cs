@@ -145,9 +145,12 @@ namespace Confinement.GameModel
                 if (_fieldElements[enemyNewPosition.X, enemyNewPosition.Y] == FieldElement.Void)
                 {
                     Thread.Sleep(200);
-                    _currentScene.ChangeCameraTarget(ConvertIntoWorldCoordinates(enemyNewPosition), 0.03f);
-                    while(_currentScene.ChangingTarget)
-                        Thread.Sleep(10);
+                    if (_state == GameState.Playing)
+                    {
+                        _currentScene.ChangeCameraTarget(ConvertIntoWorldCoordinates(enemyNewPosition), 0.03f);
+                        while (_currentScene.ChangingTarget)
+                            Thread.Sleep(10);
+                    }
                     enemy.Cube.MoveTo(enemy.Cube.Position + new Vector3(0, 200, 0), 0.1f, true);
                     enemy.Cube.Disappear(1f);
                     Thread.Sleep(1000);

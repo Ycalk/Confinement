@@ -8,6 +8,7 @@ namespace Confinement.GameModel.GameModes
 {
     internal interface IGameMode
     {
+        public int CurrentLevel { get; set; }
         public void OnPlayerWin();
         public void OnPlayerLose();
     }

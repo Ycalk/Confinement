@@ -25,6 +25,10 @@ namespace Confinement.GameModel
                 foreach (var button in buttons)
                     _currentScene.Remove(button);
 
+                var texts = _currentScene.GetEntities<Text>().ToArray();
+                foreach (var text in texts)
+                    _currentScene.Remove(text);
+
                 var cubes = _currentScene.GetEntities<Cube>().ToArray();
                 foreach (var cube in cubes)
                     _currentScene.Ignore(cube);

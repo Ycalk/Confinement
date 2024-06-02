@@ -30,7 +30,7 @@ namespace Confinement.View.Scenes.Cubes
         {
         }
 
-        public static Architecture.Scene GetScene(GameModel.GameModel.Field field, float distance, bool withUi = true)
+        public static Architecture.Scene GetScene(GameModel.GameModel.Field field, float distance, int currentLevel, bool withUi = true)
         {
             var toIgnore = new List<Cube>();
             var enemies = field.Enemies;
@@ -86,14 +86,14 @@ namespace Confinement.View.Scenes.Cubes
                     GameModel.GameModel.Screen.Width, GameModel.GameModel.Screen.Height)
             );
             if (withUi)
-                CreateUi(result, enemies);
+                CreateUi(result, enemies, currentLevel);
             
             foreach (var ignoring in toIgnore)
                 result.Ignore(ignoring);
             return result;
         }
 
-        private static void CreateUi(Scene scene, ReadOnlyCollection<GameModel.GameModel.Field.Enemy> enemies)
+        private static void CreateUi(Scene scene, ReadOnlyCollection<GameModel.GameModel.Field.Enemy> enemies, int currentLevel)
         {
             var pauseButton = new Content.InterfaceButton(
                 new Position(new Vector2(10, 10), PositionType.Percents),
@@ -111,9 +111,14 @@ namespace Confinement.View.Scenes.Cubes
                 ButtonsSize, ButtonsSize,
                 0, new GameModel.GameModel.ShowInstruction());
 
+            var text = new Text(
+                new Position(50, 5, PositionType.Percents),
+                0, View.Content.Regular, Color.DarkGray, "Stage     " + currentLevel);
+
             foreach (var button in GetEnemiesButtons(enemies))
                 scene.Add(button);
 
+            scene.Add(text);
             scene.Add(pauseButton);
             scene.Add(questionButton);
         }
