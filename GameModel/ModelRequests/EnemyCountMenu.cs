@@ -30,7 +30,7 @@ namespace Confinement.GameModel
                     throw new InvalidOperationException("Invalid sender");
 
 
-                var senderPosition = button.InitPosition.GetCoordinate(Screen, View.Scenes.MainMenu.Scene.ButtonsWidth,
+                var senderPosition = button.Position.GetCoordinate(Screen, View.Scenes.MainMenu.Scene.ButtonsWidth,
                     View.Scenes.MainMenu.Scene.ButtonsHeight);
 
                 entities.AddRange(GetEnemyCountButton(senderPosition));

@@ -36,7 +36,6 @@ namespace Confinement.GameModel
             public Controller(Player player, Screen screen, Action exit)
             {
                 _controller = this;
-                player.WindowResize += OnWindowResize;
                 player.MouseButtonPress += OnMouseButtonPress;
                 player.MouseButtonRelease += OnMouseButtonRelease;
                 player.MouseMove += OnMouseMove;
@@ -197,8 +196,8 @@ namespace Confinement.GameModel
                 _gameMode.OnPlayerLose();
             }
 
-            private void OnWindowResize(Screen oldScreen, Screen newScreen) =>
-                Screen = newScreen;
+            private void UpdateScreen(Vector2 mousePosition) =>
+                Screen = new Screen(Main.Graphics.Viewport.Width, Main.Graphics.Viewport.Height, mousePosition);
 
             private void OnMouseButtonPress(Vector2 position) =>
                 _currentScene.ButtonPress();
@@ -207,7 +206,7 @@ namespace Confinement.GameModel
                 _currentScene.ButtonRelease();
 
             private void OnMouseMove(Vector2 oldPosition, Vector2 newPosition) =>
-                Screen = new Screen(Screen.Width, Screen.Height, newPosition);
+                UpdateScreen(newPosition);
 
             private void OnEscapePress()
             {
@@ -222,25 +221,25 @@ namespace Confinement.GameModel
 
             private void OnLeftArrowPress()
             {
-                if (_playState != PlayState.Pause && _playState != PlayState.GameOver)
+                if (_playState != PlayState.Pause && _playState != PlayState.GameOver && _state != GameState.MainMenu)
                     _currentScene.LeftArrowPress();
             }
 
             private void OnRightArrowPress()
             {
-                if (_playState != PlayState.Pause && _playState != PlayState.GameOver)
+                if (_playState != PlayState.Pause && _playState != PlayState.GameOver && _state != GameState.MainMenu)
                     _currentScene.RightArrowPress();
             }
 
             private void OnUpArrowPress()
             {
-                if (_playState != PlayState.Pause && _playState != PlayState.GameOver)
+                if (_playState != PlayState.Pause && _playState != PlayState.GameOver && _state != GameState.MainMenu)
                     _currentScene.UpArrowPress();
             }
 
             private void OnDownArrowPress()
             {
-                if (_playState != PlayState.Pause && _playState != PlayState.GameOver)
+                if (_playState != PlayState.Pause && _playState != PlayState.GameOver && _state != GameState.MainMenu)
                     _currentScene.DownArrowPress();
             }
                 

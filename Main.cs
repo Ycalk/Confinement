@@ -31,8 +31,9 @@ namespace Confinement
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _player = new Player();
             var mouseState = Mouse.GetState();
+            _graphics.ApplyChanges();
             _controller = new GameModel.GameModel.Controller(_player,
-                new Screen(Window.ClientBounds.Width, Window.ClientBounds.Height, mouseState.X, mouseState.Y), Exit);
+                new Screen(_graphics.GraphicsDevice.Viewport.Width, _graphics.GraphicsDevice.Viewport.Height, mouseState.X, mouseState.Y), Exit);
             _viewManager = new Manager(_controller);
         }
 

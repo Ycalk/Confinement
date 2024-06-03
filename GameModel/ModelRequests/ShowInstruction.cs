@@ -37,10 +37,19 @@ namespace Confinement.GameModel
                     var (width, height) = textFont.MeasureString(text);
                     var textPosition = new Position(50, 50, PositionType.Percents)
                         .GetCoordinate(Screen, (int)width, (int)height);
-                    texts.Add(new Text(
-                        new Position(textPosition.X, textPosition.Y + textCurrentHeight - (instructionLines.Length * height) / 2, 
+
+                    var currentTextPosition =
+                        new Vector2(textPosition.X,
+                            textPosition.Y + textCurrentHeight - (instructionLines.Length * height) / 2);
+
+                    var obj = new Text(new Position(currentTextPosition - PauseGame.Delta,
                             PositionType.Pixels),
-                        1, textFont, Color.Black, text));
+                        1, textFont, Color.Black, text);
+
+                    obj.MoveTo(Screen, currentTextPosition, PauseGame.MovingTime, true);
+
+                    texts.Add(obj);
+
                     textCurrentHeight += height;
                 }
                 
