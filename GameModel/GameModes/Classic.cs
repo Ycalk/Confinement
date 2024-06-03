@@ -29,7 +29,7 @@ namespace Confinement.GameModel.GameModes
                 new GameModel.StartGame(1, new Classic()), this);
             var request = new ModelRequest(
                 new GameModel.LoadGameOverMenu(LevelSelect.GameOverMenuWidth, LevelSelect.GameOverMenuHeight, menuButtons,
-                    LevelSelect.GetText("Your score: "+CurrentLevel)), null);
+                    LevelSelect.GetText("Your score: "+(CurrentLevel - 1))), null);
             GameModel.Controller.CreateRequest(request);
         }
     }

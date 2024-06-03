@@ -57,7 +57,7 @@ namespace Confinement.GameModel.GameModes
                 .GetCoordinate(GameModel.Screen, (int)width, (int)height).X;
 
             return new Text(
-                new Position(textX, menuPosition.Y + 50, PositionType.Pixels), 10, Content.GameOver, Color.Black, value);
+                new Position(textX, menuPosition.Y + 50, PositionType.Pixels), 10, Content.GameOver, Color.Gray, value);
         }
 
         public static IEnumerable<Button> CreateButtons(bool withNextLevel, IGamePlot onRestartPress, IGameMode gameMode, bool restartButton = true )

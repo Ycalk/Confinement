@@ -4,6 +4,8 @@ using Confinement.View.Scenes.Cubes.Content;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Cube = Architecture.Entities.Cube;
 using Architecture.Entities.System;
 using Confinement.GameModel.GameModes;
@@ -46,7 +48,24 @@ namespace Confinement.GameModel
                     enemies);
                 _playState = PlayState.PlayerMove;
                 _controller.LoadScene(View.Scenes.Cubes.Scene.GetScene(_field, 70, _level));
-                
+                Task.Run(() =>
+                {
+                    var counter = 0;
+                    while (counter != 50)
+                    {
+                        _currentScene.RightArrowPress();
+                        _currentScene.UpArrowPress();
+                        Thread.Sleep(10);
+                        counter++;
+                    }
+
+                    Thread.Sleep(1000);
+
+                    if (CompletedLevels.Count == 0)
+                    {
+                        Controller.CreateRequest(new ModelRequest(new ShowInstruction(), null));
+                    }
+                });
             }
 
             public StartGame(int level, IGameMode gameMode = null, Action<Entity> additionalAction = null)
@@ -72,7 +91,7 @@ namespace Confinement.GameModel
                         break;
                     case 2:
                         _enemyCount = 2;
-                        _fieldSize = 17;
+                        _fieldSize = 19;
                         _scalingCoefficient = 2;
                         _scalingChance = .25;
                         _doubleMovePointsCount = 20;
@@ -81,29 +100,22 @@ namespace Confinement.GameModel
                         _enemyCount = 3;
                         _fieldSize = 27;
                         _scalingCoefficient = 2;
-                        _scalingChance = .23;
+                        _scalingChance = .25;
                         _doubleMovePointsCount = 50;
                         break;
                     case 4:
                         _enemyCount = 4;
-                        _fieldSize = 35;
+                        _fieldSize = 39;
                         _scalingCoefficient = 2;
-                        _scalingChance = .18;
+                        _scalingChance = .20;
                         _doubleMovePointsCount = 90;
                         break;
                     case 5:
                         _enemyCount = 5;
-                        _fieldSize = 45;
+                        _fieldSize = 47;
                         _scalingCoefficient = 2;
-                        _scalingChance = .17;
-                        _doubleMovePointsCount = 200;
-                        break;
-                    case 6:
-                        _enemyCount = 6;
-                        _fieldSize = 57;
-                        _scalingCoefficient = 2;
-                        _scalingChance = .17;
-                        _doubleMovePointsCount = 300;
+                        _scalingChance = .19;
+                        _doubleMovePointsCount = 150;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(level));

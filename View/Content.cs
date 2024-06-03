@@ -29,6 +29,7 @@ namespace Confinement.View
         #region CommonTextures
 
         public static Texture2D TranslucentBlack { get; private set; }
+        public static Texture2D RoundedTranslucentBlack { get; private set; }
         public static Texture2D MainMenuImage { get; private set; }
         public static Texture2D PauseTexture { get; private set; }
 
@@ -137,6 +138,7 @@ namespace Confinement.View
             GameOver = contentManager.Load<SpriteFont>("Fonts/GameOver");
 
             TranslucentBlack = contentManager.Load<Texture2D>("Buttons/TranslucentBlack");
+            RoundedTranslucentBlack = contentManager.Load<Texture2D>("Buttons/RoundedTranslucentBlack");
             MainMenuImage = contentManager.Load<Texture2D>("MainMenuImage");
             PauseTexture = contentManager.Load<Texture2D>("Buttons/PauseTexture");
 

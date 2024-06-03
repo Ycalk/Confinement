@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Architecture;
 using Architecture.Entities;
 using Architecture.Entities.System;
 using Confinement.GameModel;
@@ -18,6 +19,10 @@ namespace Confinement.View.Scenes.Cubes.Content
         private readonly Sprite _init;
         public readonly IGamePlot ReleaseAction;
 
+        private Sprite _spriteBeforeIgnoring;
+        
+        public bool OnPause { get; private set; }
+
         public InterfaceButton(Position position, 
             Texture2D init, Texture2D hover, Texture2D click, 
             int width, int height,
@@ -28,7 +33,7 @@ namespace Confinement.View.Scenes.Cubes.Content
             _hover = new Sprite(hover, width, height);
             _press = new Sprite(click, width, height);
             ReleaseAction = releaseAction;
-            PressingTextColor = Color.Black;
+            PressingTextColor = Color.White;
             HoveringTextColor = Color.Black;
         }
 
@@ -40,6 +45,7 @@ namespace Confinement.View.Scenes.Cubes.Content
 
         protected override void OnRelease()
         {
+            base.OnRelease();
             Sprite = IsHovered ? _hover : _init;
             GameModel.GameModel.Controller.CreateRequest(new ModelRequest(
                 ReleaseAction, this));
@@ -47,12 +53,28 @@ namespace Confinement.View.Scenes.Cubes.Content
 
         protected override void OnHover()
         {
+            base.OnHover();
             Sprite = _hover;
         }
 
         protected override void OnLeave()
         {
+            base.OnLeave();
             Sprite = _init;
+        }
+
+        public void Pause()
+        {
+            OnPause = true;
+            _spriteBeforeIgnoring = Sprite;
+            Sprite = new Sprite(Sprite.CombineTextures(Main.Graphics, Sprite.Texture, View.Content.RoundedTranslucentBlack),
+                Width, Height);
+        }
+
+        public void UnPause()
+        {
+            OnPause = false;
+            Sprite = _spriteBeforeIgnoring;
         }
 
     }

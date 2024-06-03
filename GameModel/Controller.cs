@@ -61,6 +61,7 @@ namespace Confinement.GameModel
                 _field = new Field(25,
                     new MazeScaling(2, .35),
                     new NormalDistribution(Field.FieldElement.DoubleMove, 30),
+                    (new SmartEnemy(), new EnemyCube()),
                     (new SmartEnemy(), new EnemyCube()));
                 _currentScene = View.Scenes.MainMenu.Scene.GetScene(_field);
                 Task.Run(() =>
@@ -70,16 +71,13 @@ namespace Confinement.GameModel
                     while (startField == _field)
                     {
                         _field.MoveEnemies();
-                        Thread.Sleep(100);
+                        Thread.Sleep(50);
                         var cubes = _currentScene.GetEntities<Cube>().ToArray();
                         foreach (var cube in cubes)
                             _currentScene.Ignore(cube);
                         Thread.Sleep(10000);
                         if (_playState == PlayState.ComputerWin)
-                        {
-                            _playState = PlayState.PlayerMove;
-                            break;
-                        }
+                            _playState = PlayState.ComputerMove;
                     }
                 });
                 SceneChange?.Invoke(_currentScene);
@@ -96,6 +94,9 @@ namespace Confinement.GameModel
                     _currentScene.Ignore(entity);
                 foreach (var entity in pause)
                     _currentScene.Add(entity);
+
+                foreach (var button in _currentScene.GetEntities<Button>().Cast<InterfaceButton>())
+                    button.Pause();
             }
 
             public void UnPauseGame()
@@ -107,6 +108,9 @@ namespace Confinement.GameModel
                     _currentScene.DisableIgnore(entity);
                 foreach (var entity in _pause)
                     _currentScene.Remove(entity);
+
+                foreach (var button in _currentScene.GetEntities<Button>().Cast<InterfaceButton>())
+                    button.UnPause();
 
                 _playState = PlayState.PlayerMove;
             }
