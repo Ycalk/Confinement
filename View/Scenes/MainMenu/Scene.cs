@@ -46,16 +46,12 @@ namespace Confinement.View.Scenes.MainMenu
             foreach (var entity in GetMainMenu())
                 scene.Add(entity);
             
-            
-            
-
-
-
             return scene;
         }
 
         private static List<Entity2D> GetMainMenu()
         {
+            var deltaX = GameModel.GameModel.Screen.Width / 4;
             var movingTime = 0.001f;
             var gameImageGoalPosition = new Position(5, 10, PositionType.Percents).GetCoordinate(GameModel.GameModel.Screen, 500, 500);
             var startButtonGoalPosition = new Position(10, 50, PositionType.Percents)
@@ -65,21 +61,21 @@ namespace Confinement.View.Scenes.MainMenu
             var exitButtonGoalPosition = new Position(10, 80, PositionType.Percents)
                 .GetCoordinate(GameModel.GameModel.Screen, ButtonsWidth, ButtonsHeight);
 
-            var gameImage = new Image(new Position(gameImageGoalPosition.X - 400, gameImageGoalPosition.Y, PositionType.Pixels),
+            var gameImage = new Image(new Position(gameImageGoalPosition.X - deltaX, gameImageGoalPosition.Y, PositionType.Pixels),
                 new Sprite(View.Content.MainMenuImage, 500, 500), 1);
 
             var startButton = new MainMenuButton(
-                new Position(startButtonGoalPosition.X - 400, startButtonGoalPosition.Y, PositionType.Pixels), 1,
+                new Position(startButtonGoalPosition.X - deltaX, startButtonGoalPosition.Y, PositionType.Pixels), 1,
                 new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new StartGame(1, new Classic()),
                 "Start");
 
             var selectLevel = new MainMenuButton(
-                new Position(selectLevelGoalPosition.X - 400, selectLevelGoalPosition.Y, PositionType.Pixels), 1,
+                new Position(selectLevelGoalPosition.X - deltaX, selectLevelGoalPosition.Y, PositionType.Pixels), 1,
                 new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new GameModel.GameModel.EnemyCountMenu(),
                 "Select     level");
 
             var exitButton = new MainMenuButton(
-                new Position(exitButtonGoalPosition.X - 400, exitButtonGoalPosition.Y, PositionType.Pixels), 1,
+                new Position(exitButtonGoalPosition.X - deltaX, exitButtonGoalPosition.Y, PositionType.Pixels), 1,
                 new Sprite(View.Content.ButtonRegular, ButtonsWidth, ButtonsHeight), new GameModel.GameModel.ExitGame(),
                 "Exit");
 

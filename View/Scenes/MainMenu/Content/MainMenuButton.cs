@@ -47,7 +47,6 @@ namespace Confinement.View.Scenes.MainMenu.Content
             base.OnRelease();
             Width += _offset;
             Height += _offset;
-            _initPosition = Position;
             Position = new Position(Position.LastCoordinates - new Vector2(_offset / 2, _offset / 2), PositionType.Pixels);
             Sprite = Hover;
         }
@@ -57,7 +56,7 @@ namespace Confinement.View.Scenes.MainMenu.Content
             base.OnRelease();
             Width -= _offset;
             Height -= _offset;
-            Position = _initPosition;
+            Position = new Position(Position.LastCoordinates + new Vector2(_offset / 2, _offset / 2), PositionType.Pixels); ;
             Sprite = _initSprite;
         }
     }

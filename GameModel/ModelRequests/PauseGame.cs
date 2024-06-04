@@ -17,20 +17,27 @@ namespace Confinement.GameModel
         {
             public const int ButtonSize = 100;
             public const float MovingTime = 0.0003f;
-            public static Vector2 Delta => new(0, GameModel.Screen.Height * 0.6f);
+            public const int PauseFormSize = 630;
+            public static Vector2 Delta => new(0, (Screen.Height + PauseFormSize) * 0.5f);
 
             public void Execute(Entity sender)
             {
                 if (new StackTrace().GetFrame(1)!.GetMethod()!.DeclaringType != typeof(Controller))
                     throw new InvalidOperationException("Method can only be execute in controller");
 
+                var padding = 150;
+
                 var entities = new List<Entity>();
-                var resumeButtonPosition = new Position(50, 30, PositionType.Percents)
-                    .GetCoordinate(Screen, 300, 100);
+
+                
                 var mainMenuPosition = new Position(50, 50, PositionType.Percents)
                     .GetCoordinate(Screen, 300, 100);
-                var exitPosition = new Position(50, 70, PositionType.Percents)
-                    .GetCoordinate(Screen, 300, 100);
+
+                var resumeButtonPosition = new Position(50, 50, PositionType.Percents)
+                    .GetCoordinate(Screen, 300, 100) + new Vector2(0, -padding);
+
+                var exitPosition = new Position(50, 50, PositionType.Percents)
+                    .GetCoordinate(Screen, 300, 100) + new Vector2(0 , padding);
 
 
                 var resumeButton = new InterfaceButton(
@@ -73,7 +80,7 @@ namespace Confinement.GameModel
             }
 
             public static List<Entity> GetPauseForm() =>
-                GetPauseForm((int)Delta.Y);
+                GetPauseForm(PauseFormSize);
 
             public static List<Entity> GetPauseForm(int pauseFormSize)
             {
