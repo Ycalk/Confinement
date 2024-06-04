@@ -61,7 +61,7 @@ namespace Confinement.GameModel
 
                     Thread.Sleep(1000);
 
-                    if (CompletedLevels.Count == 0)
+                    if (CompletedLevels.Count == 0 && _playState != PlayState.Pause)
                     {
                         Controller.CreateRequest(new ModelRequest(new ShowInstruction(), null));
                     }
