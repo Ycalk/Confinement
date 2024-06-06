@@ -26,7 +26,7 @@ To build this game you also need [MonoGame Extension](https://github.com/Ycalk/M
 ![image](https://github.com/Ycalk/Confinement/assets/118367882/eb6855bd-0f73-4771-8ecc-3fcfe3987af3)
 ![image](https://github.com/Ycalk/Confinement/assets/118367882/b2be7331-a182-48fc-9c27-6f8e9be6657d)
 ![image](https://github.com/Ycalk/Confinement/assets/118367882/d43f81ad-46c4-4ee8-be1c-d805b6b1cd19)
-![image](https://github.com/Ycalk/Confinement/assets/118367882/2b17c727-59e1-42a3-a250-b89665fc6012)
+![image](https://github.com/Ycalk/Confinement/assets/118367882/5ec30e47-066f-4b6d-8247-7576059559e0)
 ![image](https://github.com/Ycalk/Confinement/assets/118367882/ecc5a277-61d3-4f88-8f1e-6167d8f59ee9)
 
 
