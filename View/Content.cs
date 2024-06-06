@@ -116,6 +116,14 @@ namespace Confinement.View
 
         #endregion
 
+        #region ExitButton
+
+        public static Texture2D ExitButtonRegular { get; private set; }
+        public static Texture2D ExitButtonHover { get; private set; }
+        public static Texture2D ExitButtonClick { get; private set; }
+
+        #endregion
+
         #region Cubes
         public static Model RoundedCube { get; private set; }
         public static Texture2D GreyTexture { get; private set; }
@@ -181,6 +189,10 @@ namespace Confinement.View
             NextButtonRegular = contentManager.Load<Texture2D>("Buttons/NextButtonRegular");
             NextButtonHover = contentManager.Load<Texture2D>("Buttons/NextButtonHover");
             NextButtonClick = contentManager.Load<Texture2D>("Buttons/NextButtonClick");
+
+            ExitButtonRegular = contentManager.Load<Texture2D>("Buttons/ExitButtonRegular");
+            ExitButtonHover = contentManager.Load<Texture2D>("Buttons/ExitButtonHover");
+            ExitButtonClick = contentManager.Load<Texture2D>("Buttons/ExitButtonClick");
 
             RoundedCube = contentManager.Load<Model>("RoundedCube/RoundedCube");
             GreyTexture = contentManager.Load<Texture2D>("RoundedCube/GreyTexture");

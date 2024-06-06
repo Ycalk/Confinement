@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using Architecture.Entities;
 using Architecture.Entities.System;
+using Confinement.GameModel.GameModes;
 using Confinement.View;
 using Confinement.View.Scenes.Cubes.Content;
 using Microsoft.Xna.Framework;
@@ -26,6 +27,7 @@ namespace Confinement.GameModel
                     throw new InvalidOperationException("Method can only be execute in controller");
 
                 var padding = 150;
+                var buttonsSize = 120;
 
                 var entities = new List<Entity>();
 
@@ -36,7 +38,7 @@ namespace Confinement.GameModel
                 var resumeButtonPosition = new Position(50, 50, PositionType.Percents)
                     .GetCoordinate(Screen, 300, 100) + new Vector2(0, -padding);
 
-                var exitPosition = new Position(50, 50, PositionType.Percents)
+                var buttons = new Position(50, 50, PositionType.Percents)
                     .GetCoordinate(Screen, 300, 100) + new Vector2(0 , padding);
 
 
@@ -56,13 +58,26 @@ namespace Confinement.GameModel
                     300, 100, 0, new LoadMainMenu(),
                     "Main     menu");
 
-                var exit = new InterfaceButton(
-                    new Position(exitPosition - Delta, PositionType.Pixels),
-                    View.Content.ButtonRegular,
-                    View.Content.ButtonHover,
-                    View.Content.ButtonClick,
-                    300, 100, 0, new ExitGame(),
-                    "Exit");
+                var exitButton = new InterfaceButton(
+                    new Position(buttons - Delta, PositionType.Pixels),
+                    View.Content.ExitButtonRegular,
+                    View.Content.ExitButtonHover,
+                    View.Content.ExitButtonClick,
+                    buttonsSize, buttonsSize, 0, new ExitGame());
+
+                var restartPlot = _gameMode switch
+                {
+                    Classic => new StartGame(1, new Classic()),
+                    LevelSelect => new StartGame(_gameMode.CurrentLevel),
+                    _ => throw new NotImplementedException("Unknown game mode")
+                };
+
+                var restartButton = new InterfaceButton(
+                    new Position(buttons - Delta + new Vector2(300 - buttonsSize, 0), PositionType.Pixels),
+                    View.Content.RefreshButtonRegular,
+                    View.Content.RefreshButtonHover,
+                    View.Content.RefreshButtonClick,
+                    120, 120, 0, restartPlot);
 
                 resumeButton.MoveTo(
                     Screen, resumeButtonPosition, MovingTime, true);
@@ -70,10 +85,13 @@ namespace Confinement.GameModel
                 mainMenu.MoveTo(
                     Screen, mainMenuPosition, MovingTime, true);
 
-                exit.MoveTo(
-                    Screen, exitPosition, MovingTime, true);
+                exitButton.MoveTo(
+                    Screen, buttons, MovingTime, true);
 
-                entities.AddRange(new Entity[] {resumeButton, mainMenu, exit });
+                restartButton.MoveTo(
+                    Screen, buttons + new Vector2(300 - buttonsSize, 0), MovingTime, true);
+
+                entities.AddRange(new Entity[] {resumeButton, mainMenu, exitButton, restartButton });
                 entities.AddRange(GetPauseForm());
 
                 _controller.PauseGame(entities);
