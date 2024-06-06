@@ -20,7 +20,7 @@ Use the arrow keys or W, A, S, D to scale or rotate the field for a better view 
 2) **Be mindful** of the green cells, as they can cause the Red cubes to move faster and potentially escape your traps.
 
 # Build
-To build this game you also need [MonoGame Extension](https://github.com/Ycalk/MonoGame-Architecture) add reference to this project and press F5.
+To build this game you also need [MonoGame Extension](https://github.com/Ycalk/MonoGame-Architecture). Add reference to this project and press F5.
 
 # Media
 ![image](https://github.com/Ycalk/Confinement/assets/118367882/eb6855bd-0f73-4771-8ecc-3fcfe3987af3)
