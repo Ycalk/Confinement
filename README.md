@@ -1,3 +1,7 @@
+# Артефакты
+- Презентация: https://docs.google.com/presentation/d/1Rv-AiPC-e8gGQ_y2i9KiVDQuwilsc3SjRoJhl3DvmhI/edit?usp=sharing
+- Другое: https://drive.google.com/file/d/11-p9Emf6W68jF-cy-USyrYqzAF0Xkl4C/view?usp=sharing
+ 
 # Welcome
 Welcome to Confinement, a 3D game developed using MonoGame.
 
